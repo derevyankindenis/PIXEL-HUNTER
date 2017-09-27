@@ -1,7 +1,7 @@
 # Личный проект «Пиксель хантер» [![Build status][travis-image]][travis-url]
 
 * Студент: [Denis Derevyankin](https://up.htmlacademy.ru/ecmascript/3/user/113198).
-* Наставник: `Неизвестно`.
+* Наставник: [Тимофей Маринин](https://htmlacademy.ru/profile/id55644).
 
 ---
 
