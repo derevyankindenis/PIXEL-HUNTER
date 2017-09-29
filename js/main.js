@@ -1,7 +1,7 @@
 (function () {
 
   const centralScreen = document.querySelector(`.central`);
-  let gameScreens = [];
+  const gameScreens = [];
   [].forEach.call(document.getElementsByTagName(`template`), (screen) => gameScreens.push(screen));
 
   let currentScreen = 0;
@@ -11,21 +11,33 @@
     centralScreen.appendChild(gameScreens[numScreen].content.cloneNode(true));
   };
 
+  const setNextScreen = () => {
+    if (currentScreen + 1 < gameScreens.length) {
+      currentScreen++;
+      setScreen(currentScreen);
+    }
+  };
+
+  const setPreviousScreen = () => {
+    if (currentScreen > 0) {
+      currentScreen--;
+      setScreen(currentScreen);
+    }
+  };
+
   setScreen(0);
 
-  const nextScreen = () => {
-    if (currentScreen + 1 < gameScreens.length) {
-      setScreen(++currentScreen);
+  document.addEventListener(`keydown`, (evt) => {
+    if (evt.altKey) {
+      if (evt.keyCode === 39) {
+        evt.preventDefault();
+        setNextScreen();
+      }
+      if (evt.keyCode === 37) {
+        evt.preventDefault();
+        setPreviousScreen();
+      }
     }
-  };
-
-  const prevScreen = () => {
-    if (currentScreen > 0) {
-      setScreen(--currentScreen);
-    }
-  };
-
-  window.utils.onDownKeys(nextScreen, [`Alt`, `ArrowRight`]);
-  window.utils.onDownKeys(prevScreen, [`Alt`, `ArrowLeft`]);
+  });
 
 })();
