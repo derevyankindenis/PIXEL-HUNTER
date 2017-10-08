@@ -1,5 +1,5 @@
-import {getElementFromTemplate, showScreen, isCheckedSomeInput} from '../utils';
-import {screenGame2} from './game-2';
+import {getElementFromTemplate, showScreen, isCheckedSomeRadioInputs} from '../utils';
+import screenGame2 from './game-2';
 
 const html = `<div class="game">
 <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
@@ -48,7 +48,7 @@ const answer1 = screenGame1.querySelectorAll(`.game__answer input[name=question1
 const answer2 = screenGame1.querySelectorAll(`.game__answer input[name=question2]`);
 const questionForm = screenGame1.querySelector(`.game__content`);
 
-const isUserAnswered = () => isCheckedSomeInput(answer1) && isCheckedSomeInput(answer2);
+const isUserAnswered = () => isCheckedSomeRadioInputs(answer1) && isCheckedSomeRadioInputs(answer2);
 
 questionForm.addEventListener(`change`, () => {
   if (isUserAnswered()) {
@@ -56,4 +56,4 @@ questionForm.addEventListener(`change`, () => {
   }
 });
 
-export {screenGame1};
+export default screenGame1;

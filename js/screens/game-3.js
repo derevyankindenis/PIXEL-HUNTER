@@ -1,5 +1,5 @@
 import {getElementFromTemplate, showScreen} from '../utils';
-import {screenStats} from './stats';
+import screenStats from './stats';
 import {closeGameInfo} from './header';
 
 const html = `<div class="game">
@@ -33,12 +33,14 @@ const html = `<div class="game">
 
 const screenGame3 = getElementFromTemplate(html);
 const answers = screenGame3.querySelectorAll(`.game__option`);
+
 for (let i = 0; i < answers.length; i++) {
   answers[i].addEventListener(`click`, () => {
     closeGameInfo();
     showScreen(screenStats);
   });
 }
+
 // Не понимаю почему не работает такой вариант
 // Array.prototype.forEach.call(answers, (answer) => answer.addEventListner(`click`, () => showScreen(screenStats) ));
-export {screenGame3};
+export default screenGame3;

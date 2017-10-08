@@ -1,5 +1,5 @@
 import {getElementFromTemplate, showScreen} from '../utils';
-import {screenGame1} from './game-1';
+import screenGame1 from './game-1';
 import {showGameInfo} from './header';
 
 const html = `<div class="rules">
@@ -36,4 +36,4 @@ sendBtn.addEventListener(`click`, () =>{
   showScreen(screenGame1);
 });
 
-export {screenRules};
+export default screenRules;

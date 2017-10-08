@@ -1,6 +1,7 @@
 import {getElementFromTemplate, showScreen} from '../utils';
-import {screenRules} from './rules';
 import {showHeader} from './header';
+import screenRules from './rules';
+
 
 const html = `<div class="greeting central--blur">
 <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
@@ -23,4 +24,4 @@ continueBtn.addEventListener(`click`, () => {
   showScreen(screenRules);
 });
 
-export {screenGreeting};
+export default screenGreeting;

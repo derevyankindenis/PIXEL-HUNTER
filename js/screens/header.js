@@ -1,5 +1,5 @@
 import {showScreen} from '../utils';
-import {screenGreeting} from './greeting';
+import screenGreeting from './greeting';
 
 const header = document.querySelector(`.header`);
 const backBtn = header.querySelector(`.back`);

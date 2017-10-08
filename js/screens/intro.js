@@ -1,4 +1,5 @@
-import {getElementFromTemplate} from '../utils';
+import {getElementFromTemplate, showScreen} from '../utils';
+import screenGreeting from '../screens/greeting';
 
 const html = `<div id="main" class="central__content">
 <div id="intro" class="intro">
@@ -6,6 +7,10 @@ const html = `<div id="main" class="central__content">
   <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
 </div>
 </div>`;
+
 const screenIntro = getElementFromTemplate(html);
 
-export {screenIntro};
+const asterix = screenIntro.querySelector(`.intro__asterisk`);
+asterix.addEventListener(`click`, () => showScreen(screenGreeting));
+
+export default screenIntro;

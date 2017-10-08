@@ -103,4 +103,4 @@ const html = `<div class="result">
 
 const screenStats = getElementFromTemplate(html);
 
-export {screenStats};
+export default screenStats;

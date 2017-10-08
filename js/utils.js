@@ -4,7 +4,7 @@ const getElementFromTemplate = (template) => {
   return element;
 };
 
-const isCheckedSomeInput = (input) => Array.prototype.some.call(input, (radio) => radio.checked);
+const isCheckedSomeRadioInputs = (inputs) => Array.prototype.some.call(inputs, (radio) => radio.checked);
 
 const viewport = document.querySelector(`.viewport`);
 
@@ -13,4 +13,4 @@ const showScreen = (screen) => {
   viewport.appendChild(screen);
 };
 
-export {getElementFromTemplate, showScreen, isCheckedSomeInput};
+export {getElementFromTemplate, showScreen, isCheckedSomeRadioInputs};
