@@ -33,14 +33,9 @@ const html = `<div class="game">
 
 const screenGame3 = getElementFromTemplate(html);
 const answers = screenGame3.querySelectorAll(`.game__option`);
+Array.prototype.forEach.call(answers, (answer) => answer.addEventListener(`click`, () => {
+  closeGameInfo();
+  showScreen(screenStats);
+}));
 
-for (let i = 0; i < answers.length; i++) {
-  answers[i].addEventListener(`click`, () => {
-    closeGameInfo();
-    showScreen(screenStats);
-  });
-}
-
-// Не понимаю почему не работает такой вариант
-// Array.prototype.forEach.call(answers, (answer) => answer.addEventListner(`click`, () => showScreen(screenStats) ));
 export default screenGame3;
