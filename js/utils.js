@@ -12,3 +12,7 @@ export const showScreen = (screen) => {
   viewport.innerHTML = ``;
   viewport.appendChild(screen);
 };
+
+export const calculateScore = (answers, healthCount) => {
+  return 1;
+};
