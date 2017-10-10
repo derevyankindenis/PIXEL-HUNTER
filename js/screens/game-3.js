@@ -33,9 +33,12 @@ const html = `<div class="game">
 
 const screenGame3 = getElementFromTemplate(html);
 const answers = screenGame3.querySelectorAll(`.game__option`);
-Array.prototype.forEach.call(answers, (answer) => answer.addEventListener(`click`, () => {
+
+const answerClickHandler = () => {
   closeGameInfo();
   showScreen(screenStats);
-}));
+};
+
+Array.prototype.forEach.call(answers, (answer) => answer.addEventListener(`click`, answerClickHandler));
 
 export default screenGame3;
