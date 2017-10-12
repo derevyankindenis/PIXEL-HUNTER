@@ -7,7 +7,7 @@
     "eslint": "eslint js/",
     "build": "gulp build",
     "start": "gulp serve",
-    "unitTests": "gulp test",
+    "unitests": "gulp test",
     "test": "npm run eslint && npm run unitTests"
   },
   "devDependencies": {

@@ -66,7 +66,6 @@ const Timer = function (time) {
   } else {
     this.time = 0;
   }
-  // (time > 0 && time < Number.MAX_SAFE_INTEGER) ? this.time = time : this.time = 0;
 };
 
 Timer.prototype.tick = function () {
