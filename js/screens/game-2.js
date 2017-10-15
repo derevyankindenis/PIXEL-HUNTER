@@ -39,6 +39,7 @@ const answer = screenGame2.querySelectorAll(`.game__answer input[name=question1]
 questionForm.addEventListener(`change`, () => {
   if (isCheckedSomeRadioInputs(answer)) {
     showScreen(screenGame3);
+    questionForm.reset();
   }
 });
 
