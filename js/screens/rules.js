@@ -14,7 +14,7 @@ const html = `<div class="rules">
   Готовы?
 </p>
 <form class="rules__form">
-  <input class="rules__input" type="text" placeholder="Ваше Имя">
+  <input class="rules__input" type="text" placeholder="Ваше Имя" autofocus>
   <button class="rules__button  continue" type="submit" disabled>Go!</button>
 </form>
 </div>`;
