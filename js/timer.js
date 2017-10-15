@@ -10,10 +10,8 @@ Timer.prototype.tick = function () {
   this.time -= 1;
   if (this.time <= 0) {
     this.time = 0;
-    return 0;
-  } else {
-    return this.time;
   }
+  return this.time;
 };
 
 export default Timer;
