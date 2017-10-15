@@ -5,7 +5,9 @@ describe(`Тестирование функции подсчета очков`, 
   it(`Если игрок ответил меньше чем на 10 ответов, то очки не начисляются`, () => {
     assert.equal(calculateScore([], 0), -1);
     assert.equal(calculateScore([0, 0], 1), -1);
+    assert.equal(calculateScore([0, 1, 2, 3, 0, 1], 1), -1);
     assert.notEqual(calculateScore([0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 1), -1);
+    assert.notEqual(calculateScore([2, 1, 0, 3, 2, 1, 0, 3, 2, 1], 1), -1);
   });
 
   it(`Если у игрока кончились жизни, то очки не начисляются`, () => {
