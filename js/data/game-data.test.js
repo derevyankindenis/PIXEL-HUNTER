@@ -1,5 +1,6 @@
 import assert from 'assert';
-import {calculateScore, Timer} from './game-data';
+import {calculateScore} from './game-data';
+import Timer from '../timer';
 
 describe(`Тестирование функции подсчета очков`, () => {
   it(`Если игрок ответил меньше чем на 10 ответов, то очки не начисляются`, () => {
