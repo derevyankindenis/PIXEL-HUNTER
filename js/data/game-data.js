@@ -1,9 +1,13 @@
-// варианты ответов
-// const WRONG_ANSWER = 0; //пока не используется
-export const RIGHT_ANSWER = 1;
-export const FAST_RIGHT_ANSWER = 3;
-export const SLOW_RIGHT_ANSWER = 4;
+
+
 export const COUNT_QUESTIONS = 10;
+
+const typeAnswer = Object.freeze({
+  WRONG_ANSWER: 0,
+  RIGHT_ANSWER: 1,
+  FAST_RIGHT_ANSWER: 2,
+  SLOW_RIGHT_ANSWER: 3
+});
 
 export const calculateScore = (answers, healthCount) => {
 
@@ -13,13 +17,13 @@ export const calculateScore = (answers, healthCount) => {
 
   let resultScore = answers.reduce((score, answer) => {
     switch (answer) {
-      case RIGHT_ANSWER:
+      case typeAnswer.RIGHT_ANSWER:
         score += 100;
         break;
-      case FAST_RIGHT_ANSWER:
+      case typeAnswer.FAST_RIGHT_ANSWER:
         score += 150;
         break;
-      case SLOW_RIGHT_ANSWER:
+      case typeAnswer.SLOW_RIGHT_ANSWER:
         score += 50;
         break;
     }
