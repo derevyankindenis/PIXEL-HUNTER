@@ -2,11 +2,11 @@
 
 export const COUNT_QUESTIONS = 10;
 
-const typeAnswer = Object.freeze({
+export const typeAnswer = Object.freeze({
   WRONG_ANSWER: 0,
-  RIGHT_ANSWER: 1,
-  FAST_RIGHT_ANSWER: 2,
-  SLOW_RIGHT_ANSWER: 3
+  RIGHT_ANSWER: 100,
+  FAST_RIGHT_ANSWER: 150,
+  SLOW_RIGHT_ANSWER: 50
 });
 
 export const calculateScore = (answers, healthCount) => {
@@ -15,21 +15,7 @@ export const calculateScore = (answers, healthCount) => {
     return -1;
   }
 
-  let resultScore = answers.reduce((score, answer) => {
-    switch (answer) {
-      case typeAnswer.RIGHT_ANSWER:
-        score += 100;
-        break;
-      case typeAnswer.FAST_RIGHT_ANSWER:
-        score += 150;
-        break;
-      case typeAnswer.SLOW_RIGHT_ANSWER:
-        score += 50;
-        break;
-    }
-    return score;
-  }, 0);
-
+  let resultScore = answers.reduce((score, answer) => (score += answer), 0);
   resultScore += healthCount * 50;
 
   return resultScore;
