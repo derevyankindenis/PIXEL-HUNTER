@@ -1,11 +1,6 @@
 export const COUNT_QUESTIONS = 10;
-
-export const typeAnswer = Object.freeze({
-  WRONG_ANSWER: 0,
-  RIGHT_ANSWER: 100,
-  FAST_RIGHT_ANSWER: 150,
-  SLOW_RIGHT_ANSWER: 50
-});
+export const FAST_TIME = 10;
+export const SLOW_TIME = 20;
 
 export const calculateScore = (answers, healthCount) => {
 
@@ -13,7 +8,28 @@ export const calculateScore = (answers, healthCount) => {
     return -1;
   }
 
-  let resultScore = answers.reduce((score, answer) => (score += answer), 0);
+  let score = answers.map((answer) => {
+    let points = 0;
+
+    if (answer.isCorrect) {
+      points += 100;
+    } else {
+      return 0;
+    }
+
+    if (answer.time <= FAST_TIME) {
+      points += 50;
+      return points;
+    }
+
+    if (answer.time >= SLOW_TIME) {
+      points -= 50;
+    }
+
+    return points;
+  });
+
+  let resultScore = score.reduce((sumPoints, points) => (sumPoints += points), 0);
   resultScore += healthCount * 50;
 
   return resultScore;
