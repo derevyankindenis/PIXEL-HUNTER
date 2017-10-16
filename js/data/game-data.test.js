@@ -1,6 +1,7 @@
 import assert from 'assert';
 import {calculateScore} from './game-data';
 
+
 describe(`Тестирование функции подсчета очков`, () => {
   it(`Если игрок ответил меньше чем на 10 ответов, то очки не начисляются`, () => {
     assert.equal(calculateScore([], 0), -1);
