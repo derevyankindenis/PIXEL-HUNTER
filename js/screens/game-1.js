@@ -1,5 +1,6 @@
 import {getElementFromTemplate, showScreen, isCheckedSomeRadioInputs} from '../utils';
 import screenGame2 from './game-2';
+import {showHeader, showState} from './header';
 
 const html = `<div class="game">
 <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
@@ -53,6 +54,7 @@ const isUserAnswered = () => isCheckedSomeRadioInputs(answer1) && isCheckedSomeR
 questionForm.addEventListener(`change`, () => {
   if (isUserAnswered()) {
     showScreen(screenGame2);
+    showState();
     questionForm.reset();
   }
 });

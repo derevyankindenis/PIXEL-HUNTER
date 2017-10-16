@@ -1,5 +1,6 @@
 import {getElementFromTemplate, isCheckedSomeRadioInputs, showScreen} from '../utils';
 import screenGame3 from './game-3';
+import {showHeader, showState} from './header';
 
 const html = `<div class="game">
 <p class="game__task">Угадай, фото или рисунок?</p>

@@ -1,6 +1,6 @@
 import {getElementFromTemplate, showScreen} from '../utils';
-import {showHeader} from './header';
 import screenRules from './rules';
+import {showHeader} from './header';
 
 
 const html = `<div class="greeting central--blur">
@@ -20,8 +20,8 @@ const html = `<div class="greeting central--blur">
 const screenGreeting = getElementFromTemplate(html);
 const continueBtn = screenGreeting.querySelector(`.greeting__continue`);
 continueBtn.addEventListener(`click`, () => {
-  showHeader();
   showScreen(screenRules);
+  showHeader();
 });
 
 export default screenGreeting;

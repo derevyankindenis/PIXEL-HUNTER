@@ -1,6 +1,6 @@
 import {getElementFromTemplate, showScreen} from '../utils';
 import screenStats from './stats';
-import {closeGameInfo} from './header';
+import {closeState} from './header';
 
 const html = `<div class="game">
 <p class="game__task">Найдите рисунок среди изображений</p>
@@ -36,8 +36,8 @@ const questionForm = screenGame3.querySelector(`.game__content`);
 const answers = screenGame3.querySelectorAll(`.game__option`);
 
 const answerClickHandler = () => {
-  closeGameInfo();
   showScreen(screenStats);
+  closeState();
   questionForm.reset();
 };
 
