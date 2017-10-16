@@ -1,5 +1,3 @@
-
-
 export const COUNT_QUESTIONS = 10;
 
 export const typeAnswer = Object.freeze({
