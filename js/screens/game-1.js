@@ -53,6 +53,7 @@ const isUserAnswered = () => isCheckedSomeRadioInputs(answer1) && isCheckedSomeR
 questionForm.addEventListener(`change`, () => {
   if (isUserAnswered()) {
     showScreen(screenGame2);
+    questionForm.reset();
   }
 });
 
