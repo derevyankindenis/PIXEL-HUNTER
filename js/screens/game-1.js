@@ -1,62 +1,50 @@
-import {getElementFromTemplate, showScreen, isCheckedSomeRadioInputs} from '../utils';
-import screenGame2 from './game-2';
-import {showHeader, showState} from './header';
+import {getElementFromTemplate, nextGame} from '../utils';
+import statisticTemplate from './currentStatistic';
+import createHeader from './header';
 
-const html = `<div class="game">
-<p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
+const screenGame1Template = (data, state) => `
+<div class="game">
+<p class="game__task">${data.games[state.currentGame].title}</p>
 <form class="game__content">
-  <div class="game__option">
-    <img src="http://placehold.it/468x458" alt="Option 1" width="468" height="458">
-    <label class="game__answer game__answer--photo">
-      <input name="question1" type="radio" value="photo">
-      <span>Фото</span>
-    </label>
-    <label class="game__answer game__answer--paint">
-      <input name="question1" type="radio" value="paint">
-      <span>Рисунок</span>
-    </label>
-  </div>
-  <div class="game__option">
-    <img src="http://placehold.it/468x458" alt="Option 2" width="468" height="458">
-    <label class="game__answer  game__answer--photo">
-      <input name="question2" type="radio" value="photo">
-      <span>Фото</span>
-    </label>
-    <label class="game__answer  game__answer--paint">
-      <input name="question2" type="radio" value="paint">
-      <span>Рисунок</span>
-    </label>
-  </div>
+${data.games[state.currentGame].images.map((image, index) => `<div class="game__option">
+<img src="${image.src}" alt="Option 1" width="468" height="458">
+<label class="game__answer game__answer--photo">
+  <input name="question${index + 1}" type="radio" value="photo">
+  <span>Фото</span>
+</label>
+<label class="game__answer game__answer--paint">
+  <input name="question${index + 1}" type="radio" value="paint">
+  <span>Рисунок</span>
+</label>
+</div>`).join(``)}
 </form>
-<div class="stats">
-  <ul class="stats">
-    <li class="stats__result stats__result--wrong"></li>
-    <li class="stats__result stats__result--slow"></li>
-    <li class="stats__result stats__result--fast"></li>
-    <li class="stats__result stats__result--correct"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--unknown"></li>
-  </ul>
-</div>
+${statisticTemplate(data, state)}
 </div>`;
 
-const screenGame1 = getElementFromTemplate(html);
-const answer1 = screenGame1.querySelectorAll(`.game__answer input[name=question1]`);
-const answer2 = screenGame1.querySelectorAll(`.game__answer input[name=question2]`);
-const questionForm = screenGame1.querySelector(`.game__content`);
+const createGame1 = (data, state) => {
 
-const isUserAnswered = () => isCheckedSomeRadioInputs(answer1) && isCheckedSomeRadioInputs(answer2);
+  const screenGame1 = getElementFromTemplate(screenGame1Template(data, state));
+  const header = createHeader(data, state);
+  screenGame1.insertAdjacentElement(`afterBegin`, header);
+  const questionForm = screenGame1.querySelector(`.game__content`);
 
-questionForm.addEventListener(`change`, () => {
-  if (isUserAnswered()) {
-    showScreen(screenGame2);
-    showState();
-    questionForm.reset();
-  }
-});
+  const getAnswers = () => {
+    const answer1 = screenGame1.querySelector(`.game__answer input[name=question1]:checked`);
+    const answer2 = screenGame1.querySelector(`.game__answer input[name=question2]:checked`);
+    return ((answer1) && (answer2)) ? [answer1.value, answer2.value] : 0;
+  };
 
-export default screenGame1;
+  const isCorrect = (answers) => answers.every((answer, index) => answer === data.games[state.currentGame].images[index].is);
+
+  questionForm.addEventListener(`change`, () => {
+    const answers = getAnswers();
+    if (answers) {
+      state.answers.push({isCorrect: isCorrect(answers), time: 0});
+      nextGame(data, state);
+    }
+  });
+
+  return screenGame1;
+};
+
+export default createGame1;
