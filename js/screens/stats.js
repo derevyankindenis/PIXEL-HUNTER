@@ -14,9 +14,9 @@ const rowTemplate = (title, count, pointsForFastAnswer, points, iconName) => `
 `;
 
 const bonusRows = (data, state, statistic) => `
-  ${rowTemplate(`Бонус за скорость:`, statistic.fastAnswers, data.parametrs.POINTS_FOR_FAST_ANSWERS, statistic.pointsForFastAnswers, `fast`)}
+  ${statistic.fastAnswers ? rowTemplate(`Бонус за скорость:`, statistic.fastAnswers, data.parametrs.POINTS_FOR_FAST_ANSWERS, statistic.pointsForFastAnswers, `fast`) : ``}
   ${rowTemplate(`Бонус за жизни:`, state.lives, data.parametrs.POINTS_FOR_LIVES, statistic.pointsForLives, `alive`)}
-  ${rowTemplate(`Штраф за медлительность:`, statistic.slowAnswers, -data.parametrs.POINTS_FOR_SLOW_ANSWERS, -statistic.pointsForSlowAnswers, `slow`)}
+  ${statistic.slowAnswers ? rowTemplate(`Штраф за медлительность:`, statistic.slowAnswers, -data.parametrs.POINTS_FOR_SLOW_ANSWERS, -statistic.pointsForSlowAnswers, `slow`) : ``}
   <tr>
     <td colspan="5" class="result__total  result__total--final">${statistic.totalPoints}</td>
   </tr>
@@ -38,7 +38,8 @@ const statsTemplate = (data, state, statistic, isWin) => `
 
 const createStats = (data, state) => {
 
-  const statScreen = getElementFromTemplate(statsTemplate(data, state, getGameStatistic(data, state), state.lives > 0));
+  const gameStatistic = getGameStatistic(state.answers, state.lives, data.parametrs, data.games.length);
+  const statScreen = getElementFromTemplate(statsTemplate(data, state, gameStatistic, state.lives > 0));
   const header = createHeader(data);
   statScreen.insertAdjacentElement(`afterBegin`, header);
 

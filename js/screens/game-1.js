@@ -31,7 +31,7 @@ const createGame1 = (data, state) => {
   const getAnswers = () => {
     const answer1 = screenGame1.querySelector(`.game__answer input[name=question1]:checked`);
     const answer2 = screenGame1.querySelector(`.game__answer input[name=question2]:checked`);
-    return ((answer1) && (answer2)) ? [answer1.value, answer2.value] : 0;
+    return (answer1) && (answer2) ? [answer1.value, answer2.value] : 0;
   };
 
   const isCorrect = (answers) => answers.every((answer, index) => answer === data.games[state.currentGame].images[index].is);

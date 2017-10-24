@@ -3,7 +3,7 @@ import statisticTemplate from './currentStatistic';
 import createHeader from './header';
 
 const screenGame3Template = (data, state) => `<div class="game">
-<p class="game__task">Найдите рисунок среди изображений</p>
+<p class="game__task">${data.games[state.currentGame].title}</p>
 <form class="game__content  game__content--triple">
 ${data.games[state.currentGame].images.map((image, index) => `<div class="game__option" data-index=${index}>
 <img src="${image.src}" alt="Option 1" width="304" height="455">

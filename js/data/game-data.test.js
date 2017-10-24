@@ -1,23 +1,49 @@
 import assert from 'assert';
-import {calculateScore} from './game-data';
+import {getGameStatistic} from './game-data';
 
 const GAME_PARAMETRS = {
-  slowTime: 20,
-  fastTime: 10
+  FAST_TIME: 5,
+  SLOW_TIME: 10,
+  MAX_TIME: 30,
+  MAX_LIVES: 3,
+  POINTS_FOR_FAST_ANSWERS: 50,
+  POINTS_FOR_SLOW_ANSWERS: -50,
+  POINTS_FOR_CORRECT_ANSWERS: 100,
+  POINTS_FOR_LIVES: 50
 };
 
-const NORMAL_TIME = GAME_PARAMETRS.slowTime - (GAME_PARAMETRS.slowTime - GAME_PARAMETRS.fastTime) / 2;
+const NORMAL_TIME = GAME_PARAMETRS.SLOW_TIME - (GAME_PARAMETRS.SLOW_TIME - GAME_PARAMETRS.FAST_TIME) / 2;
 
 // fast right answer
 const FA = {
   isCorrect: true,
-  time: GAME_PARAMETRS.fastTime
+  time: GAME_PARAMETRS.FAST_TIME
+};
+
+const FA1 = {
+  isCorrect: true,
+  time: GAME_PARAMETRS.FAST_TIME - 1
+};
+
+const FA2 = {
+  isCorrect: true,
+  time: GAME_PARAMETRS.FAST_TIME - 2
 };
 
 // slow right answer
 const SA = {
   isCorrect: true,
-  time: GAME_PARAMETRS.slowTime
+  time: GAME_PARAMETRS.SLOW_TIME
+};
+
+const SA1 = {
+  isCorrect: true,
+  time: GAME_PARAMETRS.SLOW_TIME + 1
+};
+
+const SA2 = {
+  isCorrect: true,
+  time: GAME_PARAMETRS.SLOW_TIME + 2
 };
 
 // normal answer
@@ -32,24 +58,59 @@ const WA = {
   time: NORMAL_TIME
 };
 
-describe(`Тестирование функции подсчета очков`, () => {
-  it(`Если игрок ответил меньше чем на 10 ответов, то очки не начисляются`, () => {
-    assert.equal(calculateScore([], 0, GAME_PARAMETRS, 10), -1);
-    assert.equal(calculateScore([WA, WA], 1, GAME_PARAMETRS, 10), -1);
-    assert.equal(calculateScore([WA, NA, FA, SA, WA, NA], 1, GAME_PARAMETRS, 10), -1);
-    assert.notEqual(calculateScore([WA, WA, WA, WA, WA, WA, WA, WA, WA, WA], 1, GAME_PARAMETRS, 10), -1);
-    assert.notEqual(calculateScore([FA, NA, WA, SA, FA, NA, WA, SA, FA, NA], 1, GAME_PARAMETRS, 10), -1);
+const WA1 = {
+  isCorrect: false,
+  time: GAME_PARAMETRS.FAST_TIME - 1
+};
+
+const WA2 = {
+  isCorrect: false,
+  time: GAME_PARAMETRS.SLOW_TIME + 2
+};
+
+const COUNT_GAMES = 10;
+
+describe(`Тестирование функции подсчета статистики`, () => {
+
+  it(`Если ответов меньше чем вопросов, то очки не начисляются`, () => {
+    assert.equal(getGameStatistic([], 0, GAME_PARAMETRS, COUNT_GAMES), -1);
+    assert.equal(getGameStatistic([WA1, WA], 1, GAME_PARAMETRS, COUNT_GAMES), -1);
+    assert.equal(getGameStatistic([WA, NA, FA, SA2, WA1, NA], 1, GAME_PARAMETRS, COUNT_GAMES), -1);
+    assert.notEqual(getGameStatistic([WA1, WA2, WA, WA1, WA2, WA, WA1, WA, WA1, WA], 1, GAME_PARAMETRS, COUNT_GAMES), -1);
+    assert.notEqual(getGameStatistic([FA, NA, SA, SA1, FA2, NA, WA, SA2, FA, NA], 1, GAME_PARAMETRS, COUNT_GAMES), -1);
   });
 
   it(`Если у игрока кончились жизни, то очки не начисляются`, () => {
-    assert.equal(calculateScore([NA, NA, NA, NA, NA, NA, NA, NA, NA, NA], 0, GAME_PARAMETRS, 10), -1);
+    const statistic = getGameStatistic([NA, NA, NA, NA, NA, NA, NA, NA, NA, NA], 0, GAME_PARAMETRS, COUNT_GAMES);
+    assert.equal(statistic, -1);
   });
 
   it(`Если у игрока остались все жизни и он ответил на все вопросы не быстро и не медленно, то начисляется 1150 очков`, () => {
-    assert.equal(calculateScore([NA, NA, NA, NA, NA, NA, NA, NA, NA, NA], 3, GAME_PARAMETRS, 10), 1150);
+    const statistic = getGameStatistic([NA, NA, NA, NA, NA, NA, NA, NA, NA, NA], 3, GAME_PARAMETRS, COUNT_GAMES);
+    assert.equal(statistic.totalPoints, 1150);
   });
 
   it(`Если игрок ответил на все вопросы быстро и сохранил все жизни, то ему наисляется 1650`, () => {
-    assert.equal(calculateScore([FA, FA, FA, FA, FA, FA, FA, FA, FA, FA], 3, GAME_PARAMETRS, 10), 1650);
+    const statistic = getGameStatistic([FA, FA1, FA2, FA1, FA, FA2, FA1, FA, FA, FA], 3, GAME_PARAMETRS, COUNT_GAMES);
+    assert.equal(statistic.totalPoints, 1650);
   });
+
+  it(`Осуществляется корректный подсчет быстрых ответов`, () => {
+    assert.equal(getGameStatistic([FA, FA1, FA2, FA1, FA, FA2, FA1, FA, FA, FA], 3, GAME_PARAMETRS, COUNT_GAMES).fastAnswers, 10);
+    assert.equal(getGameStatistic([FA, FA1, FA2, FA1, FA, NA, NA, NA, NA, NA], 3, GAME_PARAMETRS, COUNT_GAMES).fastAnswers, 5);
+    assert.equal(getGameStatistic([NA, NA, NA, NA, NA, NA, NA, NA, NA, NA], 3, GAME_PARAMETRS, COUNT_GAMES).fastAnswers, 0);
+  });
+
+  it(`Осуществляется корректный подсчет медленных ответов`, () => {
+    assert.equal(getGameStatistic([SA2, SA2, SA, SA, SA1, SA1, SA2, SA2, SA, SA1], 3, GAME_PARAMETRS, COUNT_GAMES).slowAnswers, 10);
+    assert.equal(getGameStatistic([SA2, SA2, SA, SA, SA1, NA, NA, NA, NA, NA], 3, GAME_PARAMETRS, COUNT_GAMES).slowAnswers, 5);
+    assert.equal(getGameStatistic([NA, NA, NA, NA, NA, NA, NA, NA, NA, NA], 3, GAME_PARAMETRS, COUNT_GAMES).slowAnswers, 0);
+  });
+
+  it(`Осуществляется корректный подсчет правильных ответов`, () => {
+    assert.equal(getGameStatistic([NA, NA, NA, NA, NA, NA, NA, NA, NA, NA], 3, GAME_PARAMETRS, COUNT_GAMES).correctAnswers, 10);
+    assert.equal(getGameStatistic([SA2, SA2, SA, SA, SA1, NA, NA, NA, NA, NA], 3, GAME_PARAMETRS, COUNT_GAMES).correctAnswers, 5);
+    assert.equal(getGameStatistic([WA1, WA2, WA, WA1, WA2, WA, WA1, WA, WA1, WA], 3, GAME_PARAMETRS, COUNT_GAMES).correctAnswers, 0);
+  });
+
 });
