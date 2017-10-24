@@ -109,7 +109,7 @@ describe(`Тестирование функции подсчета статис�
 
   it(`Осуществляется корректный подсчет правильных ответов`, () => {
     assert.equal(getGameStatistic([NA, NA, NA, NA, NA, NA, NA, NA, NA, NA], 3, GAME_PARAMETRS, COUNT_GAMES).correctAnswers, 10);
-    assert.equal(getGameStatistic([SA2, SA2, SA, SA, SA1, NA, NA, NA, NA, NA], 3, GAME_PARAMETRS, COUNT_GAMES).correctAnswers, 5);
+    assert.equal(getGameStatistic([WA, WA, WA, WA, WA, SA2, FA, FA, NA, NA], 3, GAME_PARAMETRS, COUNT_GAMES).correctAnswers, 5);
     assert.equal(getGameStatistic([WA1, WA2, WA, WA1, WA2, WA, WA1, WA, WA1, WA], 3, GAME_PARAMETRS, COUNT_GAMES).correctAnswers, 0);
   });
 
