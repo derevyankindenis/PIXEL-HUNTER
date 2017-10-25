@@ -1,12 +1,13 @@
 import {getElementFromTemplate, nextGame} from '../utils';
 import statisticTemplate from './currentStatistic';
 import createHeader from './header';
+import {resizeImages} from '../resize';
 
 const screenGame2Template = (data, state) => `<div class="game">
 <p class="game__task">${data.games[state.currentGame].title}</p>
 <form class="game__content  game__content--wide">
   <div class="game__option">
-    <img src="${data.games[state.currentGame].image.src}" alt="Option 1" width="705" height="455">
+    <img src="${data.games[state.currentGame].image.src}" alt="Option 1" class="game__image">
     <label class="game__answer  game__answer--photo">
       <input name="question1" type="radio" value="photo">
       <span>Фото</span>
@@ -25,6 +26,9 @@ const createGame2 = (data, state) => {
   const header = createHeader(data, state);
   screenGame2.insertAdjacentElement(`afterBegin`, header);
   const questionForm = screenGame2.querySelector(`.game__content`);
+  const gameImages = [].slice.call(questionForm.querySelectorAll(`.game__image`));
+  resizeImages({width: 705, height: 455}, gameImages);
+
 
   const getAnswer = () => {
     const answer = screenGame2.querySelector(`.game__answer input[name=question1]:checked`);
