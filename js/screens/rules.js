@@ -6,8 +6,8 @@ const rulesTemplate = (data) => `<div class="rules">
   src="img/photo_icon.png" width="16" height="16"> или рисунок <img
   src="img/paint_icon.png" width="16" height="16" alt="">.<br>
   Фотографиями или рисунками могут быть оба изображения.<br>
-  На каждую попытку отводится ${data.parametrs.maxQuestionTime} секунд.<br>
-  Ошибиться можно не более ${data.parametrs.maxLives} раз.<br>
+  На каждую попытку отводится ${data.parametrs.MAX_TIME} секунд.<br>
+  Ошибиться можно не более ${data.parametrs.MAX_LIVES} раз.<br>
   <br>
   Готовы?
 </p>
