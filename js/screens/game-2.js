@@ -1,11 +1,13 @@
-import {getElementFromTemplate, isCheckedSomeRadioInputs, showScreen} from '../utils';
-import screenGame3 from './game-3';
+import {getElementFromTemplate, nextGame} from '../utils';
+import statisticTemplate from './currentStatistic';
+import createHeader from './header';
+import {resizeImages} from '../resize';
 
-const html = `<div class="game">
-<p class="game__task">Угадай, фото или рисунок?</p>
+const screenGame2Template = (data, state) => `<div class="game">
+<p class="game__task">${data.games[state.currentGame].title}</p>
 <form class="game__content  game__content--wide">
   <div class="game__option">
-    <img src="http://placehold.it/705x455" alt="Option 1" width="705" height="455">
+    <img src="${data.games[state.currentGame].image.src}" alt="Option 1" class="game__image">
     <label class="game__answer  game__answer--photo">
       <input name="question1" type="radio" value="photo">
       <span>Фото</span>
@@ -16,31 +18,34 @@ const html = `<div class="game">
     </label>
   </div>
 </form>
-<div class="stats">
-  <ul class="stats">
-    <li class="stats__result stats__result--wrong"></li>
-    <li class="stats__result stats__result--slow"></li>
-    <li class="stats__result stats__result--fast"></li>
-    <li class="stats__result stats__result--correct"></li>
-    <li class="stats__result stats__result--wrong"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--slow"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--fast"></li>
-    <li class="stats__result stats__result--unknown"></li>
-  </ul>
-</div>
+${statisticTemplate(data, state)}
 </div>`;
 
-const screenGame2 = getElementFromTemplate(html);
-const questionForm = screenGame2.querySelector(`.game__content`);
-const answer = screenGame2.querySelectorAll(`.game__answer input[name=question1]`);
+const createGame2 = (data, state) => {
+  const screenGame2 = getElementFromTemplate(screenGame2Template(data, state));
+  const header = createHeader(data, state);
+  screenGame2.insertAdjacentElement(`afterBegin`, header);
+  const questionForm = screenGame2.querySelector(`.game__content`);
+  const gameImages = [].slice.call(questionForm.querySelectorAll(`.game__image`));
+  resizeImages({width: 705, height: 455}, gameImages);
 
-questionForm.addEventListener(`change`, () => {
-  if (isCheckedSomeRadioInputs(answer)) {
-    showScreen(screenGame3);
-    questionForm.reset();
-  }
-});
 
-export default screenGame2;
+  const getAnswer = () => {
+    const answer = screenGame2.querySelector(`.game__answer input[name=question1]:checked`);
+    return answer ? answer.value : 0;
+  };
+
+  const isCorrect = (answer) => data.games[state.currentGame].image.is === answer;
+
+  questionForm.addEventListener(`change`, () => {
+    const answer = getAnswer();
+    if (answer) {
+      state.answers.push({isCorrect: isCorrect(answer), time: 0});
+      nextGame(data, state);
+    }
+  });
+
+  return screenGame2;
+};
+
+export default createGame2;

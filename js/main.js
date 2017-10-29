@@ -1,4 +1,5 @@
-import screenIntro from './screens/intro';
 import {showScreen} from './utils';
+import createIntro from './screens/intro';
+import {dataGame} from './data/game-data';
 
-showScreen(screenIntro);
+showScreen(createIntro(dataGame));

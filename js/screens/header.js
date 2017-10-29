@@ -1,35 +1,32 @@
-import {showScreen} from '../utils';
-import screenGreeting from './greeting';
+import {getElementFromTemplate, showScreen} from '../utils';
+import createGreeting from './greeting';
 
-const header = document.querySelector(`.header`);
-const backBtn = header.querySelector(`.back`);
-const headerTimer = header.querySelector(`.game__timer`);
-const headerLives = header.querySelector(`.game__lives`);
+const headerTemplate = (data, state) => `<header class="header">
+<div class="header__back">
+  <button class="back">
+    <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
+    <img src="img/logo_small.svg" width="101" height="44">
+  </button>
+</div>
+${ state ? stateGameTemplate(data.parametrs.MAX_LIVES, state.lives) : ``}
+</header>`;
 
-const closeGameInfo = () => {
-  headerTimer.style.display = `none`;
-  headerLives.style.display = `none`;
+const stateGameTemplate = (maxLives, lives) =>`<h1 class="game__timer">NN</h1>
+  <div class="game__lives">
+    ${new Array(maxLives - lives).fill(`<img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">`).join(``)}
+    ${new Array(lives).fill(`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">`).join(``)}
+  </div>`;
+
+const createHeader = (data, state) => {
+
+  const header = getElementFromTemplate(headerTemplate(data, state));
+
+  const arrowBack = header.querySelector(`.back`);
+  arrowBack.addEventListener(`click`, () => {
+    showScreen(createGreeting(data));
+  });
+
+  return header;
 };
 
-const showGameInfo = () => {
-  headerTimer.style.display = `block`;
-  headerLives.style.display = `block`;
-};
-
-const closeHeader = () => {
-  header.style.display = `none`;
-};
-
-const showHeader = () => {
-  header.style.display = `block`;
-};
-
-backBtn.addEventListener(`click`, () => {
-  closeHeader();
-  showScreen(screenGreeting);
-});
-
-closeGameInfo();
-closeHeader();
-
-export {header, showHeader, closeHeader, closeGameInfo, showGameInfo};
+export default createHeader;

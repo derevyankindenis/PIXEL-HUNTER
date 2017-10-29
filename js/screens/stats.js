@@ -1,106 +1,49 @@
 import {getElementFromTemplate} from '../utils';
+import {getGameStatistic} from '../data/game-data';
+import createHeader from '../screens/header';
+import statisticTemplate from './currentStatistic';
 
-const html = `<div class="result">
-<h1>Победа!</h1>
-<table class="result__table">
+const rowTemplate = (title, count, pointsForFastAnswer, points, iconName) => `
+<tr>
+  <td></td>
+  <td class="result__extra">${title}</td>
+  <td class="result__extra">${count}&nbsp;<span class="stats__result stats__result--${iconName}"></span></td>
+  <td class="result__points">×&nbsp;${pointsForFastAnswer}</td>
+  <td class="result__total">${points}</td>
+</tr>
+`;
+
+const bonusRows = (data, state, statistic) => `
+  ${statistic.fastAnswers ? rowTemplate(`Бонус за скорость:`, statistic.fastAnswers, data.parametrs.POINTS_FOR_FAST_ANSWERS, statistic.pointsForFastAnswers, `fast`) : ``}
+  ${rowTemplate(`Бонус за жизни:`, state.lives, data.parametrs.POINTS_FOR_LIVES, statistic.pointsForLives, `alive`)}
+  ${statistic.slowAnswers ? rowTemplate(`Штраф за медлительность:`, statistic.slowAnswers, -data.parametrs.POINTS_FOR_SLOW_ANSWERS, -statistic.pointsForSlowAnswers, `slow`) : ``}
   <tr>
-    <td class="result__number">1.</td>
-    <td colspan="2">
-      <ul class="stats">
-        <li class="stats__result stats__result--wrong"></li>
-        <li class="stats__result stats__result--slow"></li>
-        <li class="stats__result stats__result--fast"></li>
-        <li class="stats__result stats__result--correct"></li>
-        <li class="stats__result stats__result--wrong"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--slow"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--fast"></li>
-        <li class="stats__result stats__result--unknown"></li>
-      </ul>
-    </td>
-    <td class="result__points">×&nbsp;100</td>
-    <td class="result__total">900</td>
+    <td colspan="5" class="result__total  result__total--final">${statistic.totalPoints}</td>
   </tr>
-  <tr>
-    <td></td>
-    <td class="result__extra">Бонус за скорость:</td>
-    <td class="result__extra">1&nbsp;<span class="stats__result stats__result--fast"></span></td>
-    <td class="result__points">×&nbsp;50</td>
-    <td class="result__total">50</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td class="result__extra">Бонус за жизни:</td>
-    <td class="result__extra">2&nbsp;<span class="stats__result stats__result--alive"></span></td>
-    <td class="result__points">×&nbsp;50</td>
-    <td class="result__total">100</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td class="result__extra">Штраф за медлительность:</td>
-    <td class="result__extra">2&nbsp;<span class="stats__result stats__result--slow"></span></td>
-    <td class="result__points">×&nbsp;50</td>
-    <td class="result__total">-100</td>
-  </tr>
-  <tr>
-    <td colspan="5" class="result__total  result__total--final">950</td>
-  </tr>
-</table>
-<table class="result__table">
-  <tr>
-    <td class="result__number">2.</td>
-    <td>
-      <ul class="stats">
-        <li class="stats__result stats__result--wrong"></li>
-        <li class="stats__result stats__result--slow"></li>
-        <li class="stats__result stats__result--fast"></li>
-        <li class="stats__result stats__result--correct"></li>
-        <li class="stats__result stats__result--wrong"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--slow"></li>
-        <li class="stats__result stats__result--wrong"></li>
-        <li class="stats__result stats__result--fast"></li>
-        <li class="stats__result stats__result--wrong"></li>
-      </ul>
-    </td>
-    <td class="result__total"></td>
-    <td class="result__total  result__total--final">fail</td>
-  </tr>
-</table>
-<table class="result__table">
-  <tr>
-    <td class="result__number">3.</td>
-    <td colspan="2">
-      <ul class="stats">
-        <li class="stats__result stats__result--wrong"></li>
-        <li class="stats__result stats__result--slow"></li>
-        <li class="stats__result stats__result--fast"></li>
-        <li class="stats__result stats__result--correct"></li>
-        <li class="stats__result stats__result--wrong"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--slow"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--fast"></li>
-        <li class="stats__result stats__result--unknown"></li>
-      </ul>
-    </td>
-    <td class="result__points">×&nbsp;100</td>
-    <td class="result__total">900</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td class="result__extra">Бонус за жизни:</td>
-    <td class="result__extra">2&nbsp;<span class="stats__result stats__result--alive"></span></td>
-    <td class="result__points">×&nbsp;50</td>
-    <td class="result__total">100</td>
-  </tr>
-  <tr>
-    <td colspan="5" class="result__total  result__total--final">950</td>
-  </tr>
-</table>
+`;
+
+const statsTemplate = (data, state, statistic, isWin) => `
+<div class="result">
+  <h1>${ isWin ? `Победа!` : `Поражение!`}</h1>
+  <table class="result__table">
+    <tr>
+      <td class="result__number">1.</td>
+      <td colspan="2">${statisticTemplate(data, state)}</td>
+      ${isWin ? `<td class="result__points">×&nbsp;${data.parametrs.POINTS_FOR_CORRECT_ANSWERS}</td>` : ``}
+      ${isWin ? `<td class="result__total"> ${statistic.pointsForCorrectAnswers}` : `<td class="result__total  result__total--final">fail`}</td>
+    </tr>
+    ${isWin ? bonusRows(data, state, statistic) : ``}
+  </table>
 </div>`;
 
-const screenStats = getElementFromTemplate(html);
+const createStats = (data, state) => {
 
-export default screenStats;
+  const gameStatistic = getGameStatistic(state.answers, state.lives, data.parametrs, data.games.length);
+  const statScreen = getElementFromTemplate(statsTemplate(data, state, gameStatistic, state.lives > 0));
+  const header = createHeader(data);
+  statScreen.insertAdjacentElement(`afterBegin`, header);
+
+  return statScreen;
+};
+
+export default createStats;
