@@ -73,16 +73,16 @@ const COUNT_GAMES = 10;
 describe(`Тестирование функции подсчета статистики`, () => {
 
   it(`Если ответов меньше чем вопросов, то очки не начисляются`, () => {
-    assert.equal(getGameStatistic([], 0, GAME_PARAMETRS, COUNT_GAMES), -1);
-    assert.equal(getGameStatistic([WA1, WA], 1, GAME_PARAMETRS, COUNT_GAMES), -1);
-    assert.equal(getGameStatistic([WA, NA, FA, SA2, WA1, NA], 1, GAME_PARAMETRS, COUNT_GAMES), -1);
-    assert.notEqual(getGameStatistic([WA1, WA2, WA, WA1, WA2, WA, WA1, WA, WA1, WA], 1, GAME_PARAMETRS, COUNT_GAMES), -1);
-    assert.notEqual(getGameStatistic([FA, NA, SA, SA1, FA2, NA, WA, SA2, FA, NA], 1, GAME_PARAMETRS, COUNT_GAMES), -1);
+    assert.equal(getGameStatistic([], 0, GAME_PARAMETRS, COUNT_GAMES), 0);
+    assert.equal(getGameStatistic([WA1, WA], 1, GAME_PARAMETRS, COUNT_GAMES), 0);
+    assert.equal(getGameStatistic([WA, NA, FA, SA2, WA1, NA], 1, GAME_PARAMETRS, COUNT_GAMES), 0);
+    assert.notEqual(getGameStatistic([WA1, WA2, WA, WA1, WA2, WA, WA1, WA, WA1, WA], 1, GAME_PARAMETRS, COUNT_GAMES), 0);
+    assert.notEqual(getGameStatistic([FA, NA, SA, SA1, FA2, NA, WA, SA2, FA, NA], 1, GAME_PARAMETRS, COUNT_GAMES), 0);
   });
 
   it(`Если у игрока кончились жизни, то очки не начисляются`, () => {
     const statistic = getGameStatistic([NA, NA, NA, NA, NA, NA, NA, NA, NA, NA], 0, GAME_PARAMETRS, COUNT_GAMES);
-    assert.equal(statistic, -1);
+    assert.equal(statistic, 0);
   });
 
   it(`Если у игрока остались все жизни и он ответил на все вопросы не быстро и не медленно, то начисляется 1150 очков`, () => {

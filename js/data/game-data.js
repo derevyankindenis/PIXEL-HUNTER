@@ -1,7 +1,7 @@
 export const getGameStatistic = (answers, countLives, gameParametrs, countGames) => {
 
   if ((answers.length !== countGames) || (countLives <= 0)) {
-    return -1;
+    return 0;
   }
 
   const resultsGame = {

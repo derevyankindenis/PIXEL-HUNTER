@@ -3,11 +3,10 @@ import statisticTemplate from '../statistic-template';
 
 class StatisticView extends AbstractView {
 
-  constructor(data, state, isWin, statistic) {
+  constructor(data, state, statistic) {
     super();
     this.data = data;
     this.state = state;
-    this.isWin = isWin;
     this.statistic = statistic;
   }
 
@@ -35,15 +34,15 @@ class StatisticView extends AbstractView {
   get template() {
     return `
     <div class="result">
-      <h1>${ this.isWin ? `Победа!` : `Поражение!`}</h1>
+      <h1>${ this.statistic ? `Победа!` : `Поражение!`}</h1>
       <table class="result__table">
         <tr>
           <td class="result__number">1.</td>
           <td colspan="2">${statisticTemplate(this.data, this.state)}</td>
-          ${this.isWin ? `<td class="result__points">×&nbsp;${this.data.parametrs.POINTS_FOR_CORRECT_ANSWERS}</td>` : ``}
-          ${this.isWin ? `<td class="result__total"> ${this.statistic.pointsForCorrectAnswers}` : `<td class="result__total  result__total--final">fail`}</td>
+          ${this.statistic ? `<td class="result__points">×&nbsp;${this.data.parametrs.POINTS_FOR_CORRECT_ANSWERS}</td>` : ``}
+          ${this.statistic ? `<td class="result__total"> ${this.statistic.pointsForCorrectAnswers}` : `<td class="result__total  result__total--final">fail`}</td>
         </tr>
-        ${this.isWin ? this.bonusRows(this.data, this.state, this.statistic) : ``}
+        ${this.statistic ? this.bonusRows(this.data, this.state, this.statistic) : ``}
       </table>
     </div>`.trim();
   }
