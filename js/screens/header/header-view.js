@@ -8,7 +8,7 @@ class HeaderView extends AbstractView {
     this.state = state;
   }
 
-  stateGameTemplate() {
+  get stateGameTemplate() {
     return `
       <h1 class="game__timer">${this.data.parametrs.MAX_TIME}</h1>
       <div class="game__lives">
@@ -26,7 +26,7 @@ class HeaderView extends AbstractView {
             <img src="img/logo_small.svg" width="101" height="44">
           </button>
         </div>
-        ${ this.state ? this.stateGameTemplate() : ``}
+        ${ this.state ? this.stateGameTemplate : ``}
       </header>`.trim();
   }
 
