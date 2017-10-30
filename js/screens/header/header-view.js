@@ -46,7 +46,6 @@ class HeaderView extends AbstractView {
 
   onLoad() {
   }
-
 }
 
 export default HeaderView;
