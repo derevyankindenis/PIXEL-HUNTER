@@ -20,10 +20,10 @@ class Game3View extends AbstractGameView {
   bind() {
     super.bind();
     const answers = this.element.querySelectorAll(`.game__option`);
-    Array.prototype.forEach.call(answers, (answer) => answer.addEventListener(`click`, this.onClickAnythingImage));
+    Array.prototype.forEach.call(answers, (answer) => answer.addEventListener(`click`, this.onClickAnyImage));
   }
 
-  onClickAnythingImage() {
+  onClickAnyImage() {
   }
 }
 

@@ -17,7 +17,7 @@ export default (data, state) => {
     nextScreen(data, state);
   };
 
-  game3View.onClickAnythingImage = checkAnswer;
+  game3View.onClickAnyImage = checkAnswer;
 
 
   timer.onTimeOut = () => {
