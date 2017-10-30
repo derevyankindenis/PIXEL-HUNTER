@@ -2,11 +2,10 @@ import AbstractView from '../AbstractView';
 
 class HeaderView extends AbstractView {
 
-  constructor(data, state, startTime) {
+  constructor(data, state) {
     super();
     this.data = data;
     this.state = state;
-    this.startTime = startTime;
   }
 
   stateGameTemplate() {
