@@ -12,6 +12,8 @@ class Timer {
     this.time -= 1;
     if (this.time <= 0) {
       this.time = 0;
+      clearInterval(this._idInterval);
+      this.onTimeOut();
     }
     return this.time;
   }
@@ -25,15 +27,10 @@ class Timer {
       this.onTick(this.tick());
     }, 1000);
 
-    this._idTimeOut = setTimeout(() => {
-      this.onTimeOut();
-      clearInterval(this._idInterval);
-    }, this.time * 1000);
   }
 
   stop() {
     clearInterval(this._idInterval);
-    clearTimeout(this._idTimeOut);
   }
 
   onTick() {
