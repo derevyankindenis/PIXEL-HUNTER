@@ -6,9 +6,9 @@ const BlinkTimerParametrs = {
   TIME_FROM: 0,
   TIME_TO: 5,
   TIME_DELAY: 500
-}
+};
 
-export default (data, state, timer, blinkTimerParam) => {
+export default (data, state, timer) => {
 
   const headerView = new HeaderView(data, state);
   headerView.onClickBack = () => {
@@ -26,12 +26,12 @@ export default (data, state, timer, blinkTimerParam) => {
   }
 
   const blinkTimer = (time) => {
-      if ((time > BlinkTimerParametrs.TIME_FROM) && (time <= BlinkTimerParametrs.TIME_TO)) {
-        setTimeout(() => {
-          headerView.timer = '';
-        }, BlinkTimerParametrs.TIME_DELAY);
+    if ((time > BlinkTimerParametrs.TIME_FROM) && (time <= BlinkTimerParametrs.TIME_TO)) {
+      setTimeout(() => {
+        headerView.timer = ``;
+      }, BlinkTimerParametrs.TIME_DELAY);
     }
-  }
+  };
 
   return headerView;
 };
