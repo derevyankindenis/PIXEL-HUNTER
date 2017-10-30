@@ -10,7 +10,7 @@ class Game3View extends AbstractGameView {
       <form class="game__content  game__content--triple">
         ${this.data.games[this.state.currentGame].images.map((image, index) => `
           <div class="game__option" data-index=${index}>
-          <img src="${image.src}" alt="Option 1" class="game__image">
+          <img src="${image.src}" alt="Option ${index}" class="game__image">
         </div>`).join(``)}
       </form>
       ${statisticTemplate(this.data, this.state)}
