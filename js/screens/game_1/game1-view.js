@@ -1,4 +1,4 @@
-import AbstractGameView from '../AbstractGameView';
+import AbstractGameView from '../abstract-game-view';
 import statisticTemplate from '../statistic-template';
 
 class Game1View extends AbstractGameView {

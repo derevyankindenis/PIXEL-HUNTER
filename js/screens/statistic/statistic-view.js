@@ -1,4 +1,4 @@
-import AbstractView from '../AbstractView';
+import AbstractView from '../abstract-view';
 import statisticTemplate from '../statistic-template';
 
 class StatisticView extends AbstractView {

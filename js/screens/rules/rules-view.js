@@ -1,4 +1,4 @@
-import AbstractView from '../AbstractView';
+import AbstractView from '../abstract-view';
 
 class RulesView extends AbstractView {
 
