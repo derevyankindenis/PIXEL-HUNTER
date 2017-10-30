@@ -1,7 +1,7 @@
-import createGame1 from './screens/game-1';
-import createGame2 from './screens/game-2';
-import createGame3 from './screens/game-3';
-import createStat from './screens/stats';
+import game1 from './screens/game_1/game1';
+import game2 from './screens/game_2/game2';
+import game3 from './screens/game_3/game3';
+import statistic from './screens/statistic/statistic';
 
 export const getElementFromTemplate = (template) => {
   const element = document.createElement(`div`);
@@ -13,29 +13,32 @@ export const isCheckedSomeRadioInputs = (inputs) => Array.prototype.some.call(in
 
 export const viewport = document.querySelector(`.central`);
 
-export const showScreen = (screen) => {
+export const changeView = (view) => {
   viewport.innerHTML = ``;
-  viewport.appendChild(screen);
+  viewport.appendChild(view.element);
+  view.onRender();
 };
 
-export const nextGame = (data, state) => {
+export const nextScreen = (data, state) => {
+
   if ((state.answers.length > 0) && (!state.answers[state.currentGame].isCorrect)) {
     state.lives--;
   }
-  if ((data.games.length > state.currentGame + 1) && (state.lives > 0)) {
+
+  if (((data.games.length > state.currentGame + 1) && (state.lives > 0))) {
     state.currentGame++;
     switch (data.games[state.currentGame].type) {
       case 1:
-        showScreen(createGame1(data, state));
+        changeView(game1(data, state));
         break;
       case 2:
-        showScreen(createGame2(data, state));
+        changeView(game2(data, state));
         break;
       case 3:
-        showScreen(createGame3(data, state));
+        changeView(game3(data, state));
         break;
     }
   } else {
-    showScreen(createStat(data, state));
+    changeView(statistic(data, state));
   }
 };

@@ -1,7 +1,7 @@
 export const getGameStatistic = (answers, countLives, gameParametrs, countGames) => {
 
   if ((answers.length !== countGames) || (countLives <= 0)) {
-    return -1;
+    return 0;
   }
 
   const resultsGame = {
@@ -39,8 +39,8 @@ export const getGameStatistic = (answers, countLives, gameParametrs, countGames)
 export const dataGame = {
 
   parametrs: {
-    FAST_TIME: 10,
-    SLOW_TIME: 5,
+    FAST_TIME: 5,
+    SLOW_TIME: 20,
     MAX_TIME: 30,
     MAX_LIVES: 3,
     POINTS_FOR_FAST_ANSWERS: 50,
@@ -186,6 +186,6 @@ export const dataGame = {
         src: `http://www.whiterockgallery.com/JPEGs/Acierno/strawberrykisses-Mickie_Acierno.jpg`,
         is: `paint`
       }
-    },
+    }
   ]
 };
