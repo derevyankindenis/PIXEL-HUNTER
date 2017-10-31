@@ -1,13 +1,14 @@
 import AbstractView from '../abstract-view';
-import statisticTemplate from '../statistic-template';
+import statisticTemplate from './statistic-template';
 
 class StatisticView extends AbstractView {
 
-  constructor(data, state, statistic) {
+  constructor(lives, answers, statistic, settings) {
     super();
-    this.data = data;
-    this.state = state;
+    this.settings = settings;
     this.statistic = statistic;
+    this.lives = lives;
+    this.answers = answers;
   }
 
   rowTemplate(title, count, pointsForFastAnswer, points, iconName) {
@@ -21,11 +22,11 @@ class StatisticView extends AbstractView {
       </tr>`;
   }
 
-  bonusRows(data, state, statistic) {
+  bonusRows(lives, statistic, settings) {
     return `
-      ${statistic.fastAnswers ? this.rowTemplate(`Бонус за скорость:`, statistic.fastAnswers, data.parametrs.POINTS_FOR_FAST_ANSWERS, statistic.pointsForFastAnswers, `fast`) : ``}
-      ${this.rowTemplate(`Бонус за жизни:`, state.lives, data.parametrs.POINTS_FOR_LIVES, statistic.pointsForLives, `alive`)}
-      ${statistic.slowAnswers ? this.rowTemplate(`Штраф за медлительность:`, statistic.slowAnswers, -data.parametrs.POINTS_FOR_SLOW_ANSWERS, -statistic.pointsForSlowAnswers, `slow`) : ``}
+      ${statistic.fastAnswers ? this.rowTemplate(`Бонус за скорость:`, statistic.fastAnswers, settings.POINTS_FOR_FAST_ANSWERS, statistic.pointsForFastAnswers, `fast`) : ``}
+      ${this.rowTemplate(`Бонус за жизни:`, lives, settings.POINTS_FOR_LIVES, statistic.pointsForLives, `alive`)}
+      ${statistic.slowAnswers ? this.rowTemplate(`Штраф за медлительность:`, statistic.slowAnswers, -settings.POINTS_FOR_SLOW_ANSWERS, -statistic.pointsForSlowAnswers, `slow`) : ``}
       <tr>
         <td colspan="5" class="result__total  result__total--final">${statistic.totalPoints}</td>
       </tr>`;
@@ -38,17 +39,18 @@ class StatisticView extends AbstractView {
       <table class="result__table">
         <tr>
           <td class="result__number">1.</td>
-          <td colspan="2">${statisticTemplate(this.data, this.state)}</td>
-          ${this.statistic ? `<td class="result__points">×&nbsp;${this.data.parametrs.POINTS_FOR_CORRECT_ANSWERS}</td>` : ``}
+          <td colspan="2">${statisticTemplate(this.answers, this.settings.COUNT_GAMES, this.settings.FAST_TIME, this.settings.SLOW_TIME)}</td>
+          ${this.statistic ? `<td class="result__points">×&nbsp;${this.settings.POINTS_FOR_CORRECT_ANSWERS}</td>` : ``}
           ${this.statistic ? `<td class="result__total"> ${this.statistic.pointsForCorrectAnswers}` : `<td class="result__total  result__total--final">fail`}</td>
         </tr>
-        ${this.statistic ? this.bonusRows(this.data, this.state, this.statistic) : ``}
+        ${this.statistic ? this.bonusRows(this.lives, this.statistic, this.settings) : ``}
       </table>
     </div>`.trim();
   }
 
   bind() {
   }
+
 }
 
 export default StatisticView;

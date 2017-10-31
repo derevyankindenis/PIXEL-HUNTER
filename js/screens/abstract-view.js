@@ -1,4 +1,4 @@
-import {getElementFromTemplate} from '../utils';
+import {getElementFromTemplate} from '../utils/utils';
 
 class AbstractView {
 
@@ -29,8 +29,8 @@ class AbstractView {
     return this._element;
   }
 
-  set header(headerView) {
-    this._header = headerView;
+  set header(header) {
+    this._header = header.view;
   }
 
   onRender() {

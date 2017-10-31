@@ -1,14 +1,13 @@
-import AbstractGameView from '../abstract-game-view';
-import statisticTemplate from '../statistic-template';
+import AbstractGameView from './abstract-game-view';
 
 class Game1View extends AbstractGameView {
 
   get template() {
     return `
     <div class="game">
-      <p class="game__task">${this.data.games[this.state.currentGame].title}</p>
+      <p class="game__task">${this.title}</p>
       <form class="game__content">
-        ${this.data.games[this.state.currentGame].images.map((image, index) => `
+        ${this.images.map((image, index) => `
         <div class="game__option">
           <img src="${image.src}" alt="Option 1" class="game__image">
           <label class="game__answer game__answer--photo">
@@ -21,7 +20,6 @@ class Game1View extends AbstractGameView {
           </label>
         </div>`).join(``)}
       </form>
-    ${statisticTemplate(this.data, this.state)}
     </div>`;
   }
 
@@ -35,8 +33,7 @@ class Game1View extends AbstractGameView {
 
   bind() {
     super.bind();
-    const questionForm = this.element.querySelector(`.game__content`);
-    questionForm.addEventListener(`change`, this.onFormChanged);
+    this._questionForm.addEventListener(`change`, this.onFormChanged);
   }
 
   onFormChanged() {
