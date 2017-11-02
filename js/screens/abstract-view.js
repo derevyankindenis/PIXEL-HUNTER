@@ -1,4 +1,4 @@
-import {getElementFromTemplate} from '../utils';
+import {getElementFromTemplate} from '../utils/utils';
 
 class AbstractView {
 
@@ -29,8 +29,18 @@ class AbstractView {
     return this._element;
   }
 
-  set header(headerView) {
-    this._header = headerView;
+  set header(header) {
+    if (this._header) {
+      this.updateHeader(header);
+    } else {
+      this._header = header.view;
+    }
+  }
+
+  updateHeader(header) {
+    this.element.removeChild(this._header.element);
+    this._header = header.view;
+    this.element.insertAdjacentElement(`afterBegin`, this._header.element);
   }
 
   onRender() {

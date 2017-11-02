@@ -1,17 +1,25 @@
 import RulesView from './rules-view';
-import {nextScreen} from '../../utils';
-import header from '../header/header';
+import Header from '../header/header';
+import Application from '../../application';
+import {changeView} from '../../utils/utils';
 
-export default (data) => {
-  const rulesView = new RulesView(data);
-  rulesView.header = header(data);
 
-  const state = {
-    answers: [],
-    lives: data.parametrs.MAX_LIVES,
-    currentGame: -1
-  };
+class RulesScreen {
 
-  rulesView.onClickOnGO = () => nextScreen(data, state);
-  return rulesView;
-};
+  constructor(model) {
+    this.view = new RulesView(model.COUNT_GAMES, model.MAX_TIME, model.MAX_LIVES);
+  }
+
+  init() {
+    this.view.header = new Header();
+
+    this.view.onClickOnGO = () => {
+      Application.startGame();
+    };
+
+    changeView(this.view);
+  }
+
+}
+
+export default RulesScreen;

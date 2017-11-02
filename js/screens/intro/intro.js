@@ -1,8 +1,19 @@
+import Application from '../../application';
 import IntroView from './intro-view';
-import greeting from '../greeting/greeting';
-import {changeView} from '../../utils';
-import {dataGame} from '../../data/game-data';
+import {changeView} from '../../utils/utils';
 
-const intro = new IntroView();
-intro.onClick = () => changeView(greeting(dataGame));
-export default intro;
+class IntroScreen {
+  constructor() {
+    this.view = new IntroView();
+  }
+
+  init() {
+    this.view.onClick = () => {
+      Application.showGreeting();
+    };
+
+    changeView(this.view);
+  }
+}
+
+export default new IntroScreen();

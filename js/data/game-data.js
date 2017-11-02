@@ -1,6 +1,6 @@
-export const getGameStatistic = (answers, countLives, gameParametrs, countGames) => {
+export const getGameStatistic = (answers, countLives, gameParametrs) => {
 
-  if ((answers.length !== countGames) || (countLives <= 0)) {
+  if ((answers.length !== gameParametrs.COUNT_GAMES) || (countLives <= 0)) {
     return 0;
   }
 
@@ -46,7 +46,8 @@ export const dataGame = {
     POINTS_FOR_FAST_ANSWERS: 50,
     POINTS_FOR_SLOW_ANSWERS: -50,
     POINTS_FOR_CORRECT_ANSWERS: 100,
-    POINTS_FOR_LIVES: 50
+    POINTS_FOR_LIVES: 50,
+    COUNT_GAMES: 10
   },
 
   greeting: {
