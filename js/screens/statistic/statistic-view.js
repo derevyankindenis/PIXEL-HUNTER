@@ -1,14 +1,13 @@
 import AbstractView from '../abstract-view';
 import statisticTemplate from './statistic-template';
+import {getElementFromTemplate} from '../../utils/utils';
 
 class StatisticView extends AbstractView {
 
-  constructor(lives, answers, statistic, settings) {
+  constructor(settings) {
     super();
     this.settings = settings;
-    this.statistic = statistic;
-    this.lives = lives;
-    this.answers = answers;
+    this.countResults = 0;
   }
 
   rowTemplate(title, count, pointsForFastAnswer, points, iconName) {
@@ -32,23 +31,41 @@ class StatisticView extends AbstractView {
       </tr>`;
   }
 
+  resultTableTemplate(lives, answers, statistic, tableNum) {
+    return `<table class="result__table">
+        <tr>
+          <td class="result__number">${tableNum}.</td>
+          <td colspan="2">${statisticTemplate(answers, this.settings.COUNT_GAMES, this.settings.FAST_TIME, this.settings.SLOW_TIME)}</td>
+          ${statistic ? `<td class="result__points">×&nbsp;${this.settings.POINTS_FOR_CORRECT_ANSWERS}</td>` : ``}
+          ${statistic ? `<td class="result__total"> ${statistic.pointsForCorrectAnswers}` : `<td class="result__total  result__total--final">fail`}</td>
+        </tr>
+        ${statistic ? this.bonusRows(lives, statistic, this.settings) : ``}
+    </table>`;
+  }
+
   get template() {
     return `
     <div class="result">
-      <h1>${ this.statistic ? `Победа!` : `Поражение!`}</h1>
-      <table class="result__table">
-        <tr>
-          <td class="result__number">1.</td>
-          <td colspan="2">${statisticTemplate(this.answers, this.settings.COUNT_GAMES, this.settings.FAST_TIME, this.settings.SLOW_TIME)}</td>
-          ${this.statistic ? `<td class="result__points">×&nbsp;${this.settings.POINTS_FOR_CORRECT_ANSWERS}</td>` : ``}
-          ${this.statistic ? `<td class="result__total"> ${this.statistic.pointsForCorrectAnswers}` : `<td class="result__total  result__total--final">fail`}</td>
-        </tr>
-        ${this.statistic ? this.bonusRows(this.lives, this.statistic, this.settings) : ``}
-      </table>
+      <h1 class = "result_header"></h1>
     </div>`.trim();
   }
 
   bind() {
+    this.resultElement = this.element.querySelector(`.result`);
+    this.headerElement = this.resultElement.querySelector(`.result_header`);
+  }
+
+  addStatisticTable(state, statistics) {
+    if (this.element) {
+      const statisticElement = getElementFromTemplate(this.resultTableTemplate(state.lives, state.answers, statistics, ++this.countResults));
+      this.resultElement.appendChild(statisticElement);
+    }
+  }
+
+  set resultTitle(resultText) {
+    if (this.element) {
+      this.headerElement.textContent = resultText;
+    }
   }
 
 }

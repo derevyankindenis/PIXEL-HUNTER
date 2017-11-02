@@ -30,7 +30,17 @@ class AbstractView {
   }
 
   set header(header) {
+    if (this._header) {
+      this.updateHeader(header);
+    } else {
+      this._header = header.view;
+    }
+  }
+
+  updateHeader(header) {
+    this.element.removeChild(this._header.element);
     this._header = header.view;
+    this.element.insertAdjacentElement(`afterBegin`, this._header.element);
   }
 
   onRender() {

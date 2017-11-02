@@ -3,11 +3,8 @@ import Game2View from './game2-view';
 
 class Game2 extends GameScreen {
 
-  constructor(model, settings) {
-    super(model, settings, new Game2View(model.title, model.image));
-  }
-
-  init(state) {
+  constructor(model) {
+    super(model, new Game2View());
 
     this.view.onFormChanged = () => {
       const answer = this.getAnswer();
@@ -16,6 +13,11 @@ class Game2 extends GameScreen {
       }
     };
 
+  }
+
+  init(state) {
+    this.view.title = this.model.games[state.currentGame].title;
+    this.view.images = [this.model.games[state.currentGame].image];
     super.init(state);
   }
 
@@ -25,7 +27,7 @@ class Game2 extends GameScreen {
   }
 
   isCorrect(answer) {
-    return this.model.image.is === answer;
+    return this.model.games[this.state.currentGame].image.is === answer;
   }
 
 }

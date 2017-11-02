@@ -3,11 +3,8 @@ import Game1View from './game1-view';
 
 class Game1 extends GameScreen {
 
-  constructor(model, settings) {
-    super(model, settings, new Game1View(model.title, model.images));
-  }
-
-  init(state) {
+  constructor(model) {
+    super(model, new Game1View());
 
     this.view.onFormChanged = () => {
       const answers = this.getAnswers();
@@ -16,6 +13,11 @@ class Game1 extends GameScreen {
       }
     };
 
+  }
+
+  init(state) {
+    this.view.title = this.model.games[state.currentGame].title;
+    this.view.images = this.model.games[state.currentGame].images;
     super.init(state);
   }
 
@@ -26,7 +28,7 @@ class Game1 extends GameScreen {
   }
 
   isCorrect(answers) {
-    return answers.every((answer, index) => answer === this.model.images[index].is);
+    return answers.every((answer, index) => answer === this.model.games[this.state.currentGame].images[index].is);
   }
 
 }

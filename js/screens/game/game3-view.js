@@ -5,17 +5,15 @@ class Game3View extends AbstractGameView {
   get template() {
     return `
     <div class="game">
-      <p class="game__task">${this.title}</p>
+      <p class="game__task">${this._title}</p>
       <form class="game__content  game__content--triple">
-        ${this.images.map((image, index) => `
+        ${this._images.map((image, index) => `
           <div class="game__option" data-index=${index}>
-          <img src="${image.src}" alt="Option ${index}" class="game__image">
-        </div>`).join(``)}
+            ${this.getTemplateImage(image.src, index)}
+          </div>`).join(``)}
       </form>
     </div>`;
   }
-
-  // ${statisticTemplate(this.data, this.state)}
 
   bind() {
     super.bind();

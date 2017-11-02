@@ -5,11 +5,11 @@ class Game1View extends AbstractGameView {
   get template() {
     return `
     <div class="game">
-      <p class="game__task">${this.title}</p>
+      <p class="game__task">${this._title}</p>
       <form class="game__content">
-        ${this.images.map((image, index) => `
+        ${this._images.map((image, index) => `
         <div class="game__option">
-          <img src="${image.src}" alt="Option 1" class="game__image">
+          ${this.getTemplateImage(image.src, index)}
           <label class="game__answer game__answer--photo">
             <input name="question${index + 1}" type="radio" value="photo">
             <span>Фото</span>

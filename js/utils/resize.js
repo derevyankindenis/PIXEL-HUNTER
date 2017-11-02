@@ -4,12 +4,16 @@ export const resize = (frame, image) => {
   return {width: image.width * ratio, height: image.height * ratio};
 };
 
-export const resizeImages = (frame, images) => {
-  images.forEach((image) => {
+export const resizeImage = (frame, image) => {
+  const size = resize({width: frame.clientWidth, height: frame.clientHeight}, image);
+  image.width = size.width;
+  image.height = size.height;
+};
+
+export const resizeImages = (frames, images) => {
+  images.forEach((image, index) => {
     image.addEventListener(`load`, () => {
-      const size = resize(frame, image);
-      image.width = size.width;
-      image.height = size.height;
+      resizeImage(frames[index], image);
     });
   });
 };

@@ -5,16 +5,15 @@ import {changeView} from '../../utils/utils';
 
 class GameScreen {
 
-  constructor(model, settings, view) {
+  constructor(model, view) {
     this.model = model;
     this.view = view;
-    this.settings = settings;
-    this.timer = new Timer(settings.MAX_TIME);
+    this.settings = model.parametrs;
   }
 
   init(state) {
-
     this.state = state;
+    this.timer = new Timer(this.settings.MAX_TIME);
 
     if (!this.view) {
       throw Error(`Should be initialized view`);
