@@ -74,13 +74,13 @@ class Application {
     if (state) {
       const paramsHash = state.split(`|`);
 
-      const unCriptoState = {
+      const parsedState = {
         lives: Number(paramsHash[1]),
         currentGame: Number(paramsHash[2]),
         answers: decodeAnswers(paramsHash[0])
       };
 
-      return unCriptoState;
+      return parsedState;
     }
     return ``;
   }
@@ -93,32 +93,50 @@ class Application {
     return ``;
   }
 
-  static showIntro() {
-    location.hash = ControllerId.INTRO;
+  static changeTO(screen, state) {
+    location.hash = `${screen}${state ? `?${state}` : ``}`;
+  }
+
+  static showWelcome() {
+    this.changeTO(ControllerId.INTRO);
   }
 
   static showGreeting() {
-    location.hash = ControllerId.GREETING;
+    this.changeTO(ControllerId.GREETING);
   }
 
   static showRules() {
-    location.hash = ControllerId.RULES;
+    this.changeTO(ControllerId.RULES);
   }
 
   static showStatistic(state) {
-    location.hash = `${ControllerId.STATISTIC}?${this.saveState(state)}`;
+    this.changeTO(ControllerId.STATISTIC, this.saveState(state));
+  }
+
+  static showGame(state) {
+    switch (dataGame.games[state.currentGame].type) {
+      case 1:
+        this.showGame1(state);
+        break;
+      case 2:
+        this.showGame2(state);
+        break;
+      case 3:
+        this.showGame3(state);
+        break;
+    }
   }
 
   static showGame1(state) {
-    location.hash = `${ControllerId.GAME_1}?${this.saveState(state)}`;
+    this.changeTO(ControllerId.GAME_1, this.saveState(state));
   }
 
   static showGame2(state) {
-    location.hash = `${ControllerId.GAME_2}?${this.saveState(state)}`;
+    this.changeTO(ControllerId.GAME_2, this.saveState(state));
   }
 
   static showGame3(state) {
-    location.hash = `${ControllerId.GAME_3}?${this.saveState(state)}`;
+    this.changeTO(ControllerId.GAME_3, this.saveState(state));
   }
 
   static startGame() {
@@ -129,20 +147,9 @@ class Application {
     if ((state.answers.length > 0) && (!state.answers[state.currentGame].isCorrect)) {
       state.lives--;
     }
-
     if (((dataGame.parametrs.COUNT_GAMES > state.currentGame + 1) && (state.lives > 0))) {
       state.currentGame++;
-      switch (dataGame.games[state.currentGame].type) {
-        case 1:
-          this.showGame1(state);
-          break;
-        case 2:
-          this.showGame2(state);
-          break;
-        case 3:
-          this.showGame3(state);
-          break;
-      }
+      this.showGame(state);
     } else {
       this.showStatistic(state);
     }

@@ -20,8 +20,8 @@ class AbstractGameView extends AbstractView {
     this._images = paramImages;
   }
 
-  getTemplateImage(src, index = 1) {
-    return `<img src="${src}" alt="Option ${index}" class="game__image">`;
+  getTemplateImage(src, index) {
+    return `<img src="${src}" alt="Option ${index ? index : ``}" class="game__image">`;
   }
 
   updateImages(paramImages) {
