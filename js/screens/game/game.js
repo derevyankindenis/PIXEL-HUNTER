@@ -35,8 +35,8 @@ class GameScreen {
     changeView(this.view);
   }
 
-  endGame(isCorrectAnswer) {
-    this.state.answers.push({isCorrect: isCorrectAnswer, time: this.settings.MAX_TIME - this.timer.time});
+  endGame(isCorrect) {
+    this.state.answers.push({isCorrect, time: this.settings.MAX_TIME - this.timer.time});
     this.timer.stop();
     Application.nextGame(this.state);
   }

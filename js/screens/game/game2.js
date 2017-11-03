@@ -23,7 +23,7 @@ class Game2 extends GameScreen {
 
   getAnswer() {
     const answer = this.view.checkedAnswer;
-    return answer ? answer.value : 0;
+    return answer.value;
   }
 
   isCorrect(answer) {
