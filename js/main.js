@@ -1,4 +1,3 @@
-import {changeView} from './utils';
-import intro from './screens/intro/intro';
+import Application from './application';
 
-changeView(intro);
+Application.init();

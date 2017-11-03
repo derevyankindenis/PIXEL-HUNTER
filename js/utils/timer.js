@@ -26,7 +26,6 @@ class Timer {
     this._idInterval = setInterval(()=>{
       this.onTick(this.tick());
     }, 1000);
-
   }
 
   stop() {

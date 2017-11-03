@@ -2,9 +2,11 @@ import AbstractView from '../abstract-view';
 
 class RulesView extends AbstractView {
 
-  constructor(data) {
+  constructor(gamesCount, maxTime, lives) {
     super();
-    this.data = data;
+    this.gamesCount = gamesCount;
+    this.maxTime = maxTime;
+    this.lives = lives;
   }
 
   get template() {
@@ -12,13 +14,13 @@ class RulesView extends AbstractView {
     <div class="rules">
       <h1 class="rules__title">Правила</h1>
       <p class="rules__description">
-        Угадай ${this.data.games.length} раз для каждого изображения фото
+        Угадай ${this.gamesCount} раз для каждого изображения фото
         <img src="img/photo_icon.png" width="16" height="16">
         или рисунок
         <img src="img/paint_icon.png" width="16" height="16" alt="">.<br>
         Фотографиями или рисунками могут быть оба изображения.<br>
-        На каждую попытку отводится ${this.data.parametrs.MAX_TIME} секунд.<br>
-        Ошибиться можно не более ${this.data.parametrs.MAX_LIVES} раз.<br>
+        На каждую попытку отводится ${this.maxTime} секунд.<br>
+        Ошибиться можно не более ${this.lives} раз.<br>
         <br>
         Готовы?
       </p>
@@ -50,8 +52,6 @@ class RulesView extends AbstractView {
   onClickOnGO() {
   }
 
-  onAnswered() {
-  }
 }
 
 export default RulesView;

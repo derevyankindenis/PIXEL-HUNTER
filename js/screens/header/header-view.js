@@ -2,17 +2,16 @@ import AbstractView from '../abstract-view';
 
 class HeaderView extends AbstractView {
 
-  constructor(data, state) {
+  constructor(state) {
     super();
-    this.data = data;
     this.state = state;
   }
 
   get stateGameTemplate() {
     return `
-      <h1 class="game__timer">${this.data.parametrs.MAX_TIME}</h1>
+      <h1 class="game__timer">${this.state.initialTime}</h1>
       <div class="game__lives">
-        ${new Array(this.data.parametrs.MAX_LIVES - this.state.lives).fill(`<img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">`).join(``)}
+        ${new Array(this.state.deaths).fill(`<img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">`).join(``)}
         ${new Array(this.state.lives).fill(`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">`).join(``)}
       </div>`;
   }

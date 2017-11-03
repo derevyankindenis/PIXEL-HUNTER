@@ -2,9 +2,10 @@ import AbstractView from '../abstract-view';
 
 class GreetingView extends AbstractView {
 
-  constructor(data) {
+  constructor(title, content) {
     super();
-    this.data = data;
+    this.title = title;
+    this.content = content;
   }
 
   get template() {
@@ -13,8 +14,8 @@ class GreetingView extends AbstractView {
     <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
     <h1 class="greeting__asterisk">*</h1>
     <div class="greeting__challenge">
-      <h3>${this.data.greeting.title}</h3>
-      <p>${this.data.greeting.content}</p>
+      <h3>${this.title}</h3>
+      <p>${this.content}</p>
     </div>
     <div class="greeting__continue"><span><img src="img/arrow_right.svg" width="64" height="64" alt="Next"></span></div>
     </div>`.trim();

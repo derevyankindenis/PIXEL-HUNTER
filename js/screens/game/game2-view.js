@@ -1,15 +1,14 @@
-import AbstractGameView from '../abstract-game-view';
-import statisticTemplate from '../statistic-template';
+import AbstractGameView from './abstract-game-view';
 
 class Game2View extends AbstractGameView {
 
   get template() {
     return `
     <div class="game">
-      <p class="game__task">${this.data.games[this.state.currentGame].title}</p>
+      <p class="game__task">${this._title}</p>
       <form class="game__content  game__content--wide">
         <div class="game__option">
-          <img src="${this.data.games[this.state.currentGame].image.src}" alt="Option 1" class="game__image">
+          ${this.getTemplateImage(this._images[0].src, 1)}
           <label class="game__answer  game__answer--photo">
             <input name="question1" type="radio" value="photo">
             <span>Фото</span>
@@ -20,7 +19,6 @@ class Game2View extends AbstractGameView {
           </label>
         </div>
       </form>
-    ${statisticTemplate(this.data, this.state)}
     </div>`;
   }
 
@@ -30,8 +28,7 @@ class Game2View extends AbstractGameView {
 
   bind() {
     super.bind();
-    const questionForm = this.element.querySelector(`.game__content`);
-    questionForm.addEventListener(`change`, this.onFormChanged);
+    this._questionForm.addEventListener(`change`, this.onFormChanged);
   }
 
   onFormChanged() {

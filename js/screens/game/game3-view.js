@@ -1,19 +1,17 @@
-import AbstractGameView from '../abstract-game-view';
-import statisticTemplate from '../statistic-template';
+import AbstractGameView from './abstract-game-view';
 
 class Game3View extends AbstractGameView {
 
   get template() {
     return `
     <div class="game">
-      <p class="game__task">${this.data.games[this.state.currentGame].title}</p>
+      <p class="game__task">${this._title}</p>
       <form class="game__content  game__content--triple">
-        ${this.data.games[this.state.currentGame].images.map((image, index) => `
+        ${this._images.map((image, index) => `
           <div class="game__option" data-index=${index}>
-          <img src="${image.src}" alt="Option ${index}" class="game__image">
-        </div>`).join(``)}
+            ${this.getTemplateImage(image.src, index)}
+          </div>`).join(``)}
       </form>
-      ${statisticTemplate(this.data, this.state)}
     </div>`;
   }
 
