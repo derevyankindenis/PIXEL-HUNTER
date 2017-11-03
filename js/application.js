@@ -93,24 +93,24 @@ class Application {
     return ``;
   }
 
-  static changeTO(screen, state) {
+  static changeTo(screen, state) {
     location.hash = `${screen}${state ? `?${state}` : ``}`;
   }
 
   static showWelcome() {
-    this.changeTO(ControllerId.INTRO);
+    this.changeTo(ControllerId.INTRO);
   }
 
   static showGreeting() {
-    this.changeTO(ControllerId.GREETING);
+    this.changeTo(ControllerId.GREETING);
   }
 
   static showRules() {
-    this.changeTO(ControllerId.RULES);
+    this.changeTo(ControllerId.RULES);
   }
 
   static showStatistic(state) {
-    this.changeTO(ControllerId.STATISTIC, this.saveState(state));
+    this.changeTo(ControllerId.STATISTIC, this.saveState(state));
   }
 
   static showGame(state) {
@@ -128,15 +128,15 @@ class Application {
   }
 
   static showGame1(state) {
-    this.changeTO(ControllerId.GAME_1, this.saveState(state));
+    this.changeTo(ControllerId.GAME_1, this.saveState(state));
   }
 
   static showGame2(state) {
-    this.changeTO(ControllerId.GAME_2, this.saveState(state));
+    this.changeTo(ControllerId.GAME_2, this.saveState(state));
   }
 
   static showGame3(state) {
-    this.changeTO(ControllerId.GAME_3, this.saveState(state));
+    this.changeTo(ControllerId.GAME_3, this.saveState(state));
   }
 
   static startGame() {
