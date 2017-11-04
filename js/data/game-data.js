@@ -51,7 +51,7 @@ export const AnswerType = {
   PHOTO: `photo`
 };
 
-const toGameObject = (gameObject) => {
+const convertToGameObject = (gameObject) => {
   const result = {
     type: gameObject.type,
     title: gameObject.question,
@@ -88,7 +88,7 @@ const SETTINGS_DEFAULT = {
 
 
 export const createAppData = (serverData, greeting = GREETING, parametrs = SETTINGS_DEFAULT) => {
-  const games = serverData.map(toGameObject);
+  const games = serverData.map(convertToGameObject);
   parametrs.COUNT_GAMES = games.length;
   return {
     greeting,
