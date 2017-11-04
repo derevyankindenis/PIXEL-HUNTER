@@ -17,7 +17,7 @@ class Game2 extends GameScreen {
 
   init(state) {
     this.view.title = this.model.games[state.currentGame].title;
-    this.view.images = [this.model.games[state.currentGame].image];
+    this.view.images = this.model.games[state.currentGame].images;
     super.init(state);
   }
 
@@ -27,7 +27,7 @@ class Game2 extends GameScreen {
   }
 
   isCorrect(answer) {
-    return this.model.games[this.state.currentGame].image.is === answer;
+    return this.model.games[this.state.currentGame].images[0].is === answer;
   }
 
 }
