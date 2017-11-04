@@ -47,18 +47,26 @@ class StatisticView extends AbstractView {
     return `
     <div class="result">
       <h1 class = "result_header"></h1>
+      <div class = "results"></div>
     </div>`.trim();
   }
 
   bind() {
-    this.resultElement = this.element.querySelector(`.result`);
-    this.headerElement = this.resultElement.querySelector(`.result_header`);
+    this.resultElement = this.element.querySelector(`.results`);
+    this.headerElement = this.element.querySelector(`.result_header`);
   }
 
   addStatisticTable(state, statistics) {
     if (this.element) {
-      const statisticElement = getElementFromTemplate(this.resultTableTemplate(state.lives, state.answers, statistics, ++this.countResults));
+      const statisticElement = getElementFromTemplate(this.resultTableTemplate(state.lives, state.answers, statistics, `${++this.countResults}`));
       this.resultElement.appendChild(statisticElement);
+    }
+  }
+
+  clearStatistic() {
+    if (this.element) {
+      this.countResults = 0;
+      this.resultElement.innerHTML = ``;
     }
   }
 

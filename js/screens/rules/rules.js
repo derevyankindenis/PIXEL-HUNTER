@@ -14,6 +14,7 @@ class RulesScreen {
     this.view.header = new Header();
 
     this.view.onClickOnGO = () => {
+      Application.currentUser = this.view.nameUser;
       Application.startGame();
     };
 
