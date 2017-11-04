@@ -121,27 +121,15 @@ class Application {
   static showGame(state) {
     switch (this.data.games[state.currentGame].type) {
       case QuestionType.TWO_OF_TWO:
-        this.showGame1(state);
+        this.routes[ControllerId.GAME_1].init(state);
         break;
       case QuestionType.TINDER_LIKE:
-        this.showGame2(state);
+        this.routes[ControllerId.GAME_2].init(state);
         break;
       case QuestionType.ONE_OF_THREE:
-        this.showGame3(state);
+        this.routes[ControllerId.GAME_2].init(state);
         break;
     }
-  }
-
-  static showGame1(state) {
-    this.routes[ControllerId.GAME_1].init(state);
-  }
-
-  static showGame2(state) {
-    this.routes[ControllerId.GAME_2].init(state);
-  }
-
-  static showGame3(state) {
-    this.routes[ControllerId.GAME_3].init(state);
   }
 
   static startGame() {

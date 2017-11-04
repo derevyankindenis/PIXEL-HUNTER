@@ -7,6 +7,8 @@ const BlinkTimerParametrs = {
   TIME_DELAY: 500
 };
 
+const CONFIRM_MESSAGE = `Если вы вернётесь на начальный экран, текущая игровая статистика будет потеряна!`;
+
 class Header {
 
   constructor(model, timer) {
@@ -17,9 +19,13 @@ class Header {
   get view() {
     this._view.onClickBack = () => {
       if (this.timer) {
-        this.timer.stop();
+        if (confirm(CONFIRM_MESSAGE)) { // eslint-disable-line no-alert
+          this.timer.stop();
+          Application.showGreeting();
+        }
+      } else {
+        Application.showGreeting();
       }
-      Application.showGreeting();
     };
 
     if (this.timer) {
