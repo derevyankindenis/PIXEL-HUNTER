@@ -51,7 +51,7 @@ export const AnswerType = {
   PHOTO: `photo`
 };
 
-const toGameObject = (gameObject) => {
+const convertToGameObject = (gameObject) => {
   const result = {
     type: gameObject.type,
     title: gameObject.question,
@@ -65,7 +65,7 @@ const toGameObject = (gameObject) => {
   return result;
 };
 
-const GREETING = {
+const greetingDefault = {
   title: `Лучшие художники-фотореалисты бросают&nbsp;тебе&nbsp;вызов!`,
   content: `Правила игры просты.<br>
     Нужно отличить рисунок&nbsp;от фотографии и сделать выбор.<br>
@@ -74,7 +74,7 @@ const GREETING = {
     Помни, главное — смотреть очень внимательно.`
 };
 
-const SETTINGS_DEFAULT = {
+const settingsDefault = {
   FAST_TIME: 5,
   SLOW_TIME: 20,
   MAX_TIME: 30,
@@ -87,8 +87,8 @@ const SETTINGS_DEFAULT = {
 };
 
 
-export const createAppData = (serverData, greeting = GREETING, parametrs = SETTINGS_DEFAULT) => {
-  const games = serverData.map(toGameObject);
+export const createAppData = (serverData, greeting = greetingDefault, parametrs = settingsDefault) => {
+  const games = serverData.map(convertToGameObject);
   parametrs.COUNT_GAMES = games.length;
   return {
     greeting,
