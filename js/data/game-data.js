@@ -14,7 +14,9 @@ export const getGameStatistic = (answers, countLives, gameParametrs) => {
     pointsForSlowAnswers: 0,
     pointsForCorrectAnswers: 0,
     pointsForLives: 0,
-    totalPoints: 0
+    totalPoints: 0,
+    lives: countLives,
+    answers
   };
 
   answers.forEach((answer) => {

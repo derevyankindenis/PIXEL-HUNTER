@@ -7,7 +7,7 @@ import Game3 from './screens/game/game3';
 import StatisticScreen from './screens/statistic/statistic';
 import {QuestionType, createAppData} from './data/game-data';
 import SplashScreen from './screens/splash-screen';
-import Loader from './loader';
+import {Loader, DEFAULT_NAME} from './utils/loader';
 
 
 const getInitialState = () => {
@@ -45,6 +45,7 @@ class Application {
   static init(data) {
 
     this.data = data;
+    this.currentUser = DEFAULT_NAME;
 
     Application.routes = {
       [ControllerId.INTRO]: introScreen,
@@ -114,7 +115,8 @@ class Application {
   }
 
   static showStatistic(state) {
-    this.changeTo(ControllerId.STATISTIC, this.saveState(state));
+    this.routes[ControllerId.STATISTIC].init(state, this.currentUser);
+    Loader.saveData(state, this.currentUser);
   }
 
   static showGame(state) {
@@ -132,15 +134,15 @@ class Application {
   }
 
   static showGame1(state) {
-    this.changeTo(ControllerId.GAME_1, this.saveState(state));
+    this.routes[ControllerId.GAME_1].init(state);
   }
 
   static showGame2(state) {
-    this.changeTo(ControllerId.GAME_2, this.saveState(state));
+    this.routes[ControllerId.GAME_2].init(state);
   }
 
   static showGame3(state) {
-    this.changeTo(ControllerId.GAME_3, this.saveState(state));
+    this.routes[ControllerId.GAME_3].init(state);
   }
 
   static startGame() {
@@ -158,7 +160,6 @@ class Application {
       this.showStatistic(state);
     }
   }
-
 }
 
 
@@ -169,4 +170,3 @@ Loader.loadData()
     .catch(() => splash.showError());
 
 export default Application;
-
