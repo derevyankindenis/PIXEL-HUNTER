@@ -6,11 +6,11 @@ export const getElementFromTemplate = (template) => {
 
 export const isCheckedSomeRadioInputs = (inputs) => Array.prototype.some.call(inputs, (radio) => radio.checked);
 
-export const viewport = document.querySelector(`.central`);
+export const viewport = () => document.querySelector(`.central`);
 
 export const changeView = (view) => {
-  viewport.innerHTML = ``;
-  viewport.appendChild(view.element);
+  viewport().innerHTML = ``;
+  viewport().appendChild(view.element);
   view.onRender();
 };
 
