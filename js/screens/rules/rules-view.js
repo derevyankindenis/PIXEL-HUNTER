@@ -45,7 +45,6 @@ class RulesView extends AbstractView {
 
     sendBtn.addEventListener(`click`, (evt) => {
       evt.preventDefault();
-      this.nameUser = nameInput.value.trim();
       this.onClickOnGO();
     });
   }

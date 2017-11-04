@@ -15,7 +15,7 @@ class Game1View extends AbstractGameView {
             <span>Фото</span>
           </label>
           <label class="game__answer game__answer--paint">
-            <input name="question${index + 1}" type="radio" value="painting">
+            <input name="question${index + 1}" type="radio" value="paint">
             <span>Рисунок</span>
           </label>
         </div>`).join(``)}
