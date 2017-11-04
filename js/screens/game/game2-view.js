@@ -14,7 +14,7 @@ class Game2View extends AbstractGameView {
             <span>Фото</span>
           </label>
           <label class="game__answer  game__answer--wide  game__answer--paint">
-            <input name="question1" type="radio" value="paint">
+            <input name="question1" type="radio" value="painting">
             <span>Рисунок</span>
           </label>
         </div>
