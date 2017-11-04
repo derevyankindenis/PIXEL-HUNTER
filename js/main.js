@@ -1,3 +1,1 @@
-import Application from './application';
-
-Application.init();
+import Application from './application'; // eslint-disable-line no-unused-vars

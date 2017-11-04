@@ -13,3 +13,5 @@ export const changeView = (view) => {
   viewport.appendChild(view.element);
   view.onRender();
 };
+
+export const countEnterElement = (arr, search) => arr.reduce((count, element) => element === search ? count + 1 : count, 0);

@@ -5,13 +5,15 @@ import Game1 from './screens/game/game1';
 import Game2 from './screens/game/game2';
 import Game3 from './screens/game/game3';
 import StatisticScreen from './screens/statistic/statistic';
-import {dataGame} from './data/game-data';
+import {QuestionType, createAppData} from './data/game-data';
+import SplashScreen from './screens/splash-screen';
+import Loader from './loader';
 
 
 const getInitialState = () => {
   return {
     answers: [],
-    lives: dataGame.parametrs.MAX_LIVES,
+    lives: 3,
     currentGame: -1
   };
 };
@@ -40,16 +42,18 @@ const decodeAnswers = (cryptoStr) => {
 
 class Application {
 
-  static init() {
+  static init(data) {
+
+    this.data = data;
 
     Application.routes = {
       [ControllerId.INTRO]: introScreen,
-      [ControllerId.GREETING]: new GreetingScreen(dataGame.greeting),
-      [ControllerId.RULES]: new RulesScreen(dataGame.parametrs),
-      [ControllerId.GAME_1]: new Game1(dataGame),
-      [ControllerId.GAME_2]: new Game2(dataGame),
-      [ControllerId.GAME_3]: new Game3(dataGame),
-      [ControllerId.STATISTIC]: new StatisticScreen(dataGame)
+      [ControllerId.GREETING]: new GreetingScreen(data.greeting),
+      [ControllerId.RULES]: new RulesScreen(data.parametrs),
+      [ControllerId.GAME_1]: new Game1(data),
+      [ControllerId.GAME_2]: new Game2(data),
+      [ControllerId.GAME_3]: new Game3(data),
+      [ControllerId.STATISTIC]: new StatisticScreen(data)
     };
 
     const hashChangeHandler = () => {
@@ -114,14 +118,14 @@ class Application {
   }
 
   static showGame(state) {
-    switch (dataGame.games[state.currentGame].type) {
-      case 1:
+    switch (this.data.games[state.currentGame].type) {
+      case QuestionType.TWO_OF_TWO:
         this.showGame1(state);
         break;
-      case 2:
+      case QuestionType.TINDER_LIKE:
         this.showGame2(state);
         break;
-      case 3:
+      case QuestionType.ONE_OF_THREE:
         this.showGame3(state);
         break;
     }
@@ -147,7 +151,7 @@ class Application {
     if ((state.answers.length > 0) && (!state.answers[state.currentGame].isCorrect)) {
       state.lives--;
     }
-    if (((dataGame.parametrs.COUNT_GAMES > state.currentGame + 1) && (state.lives > 0))) {
+    if (((this.data.parametrs.COUNT_GAMES > state.currentGame + 1) && (state.lives > 0))) {
       state.currentGame++;
       this.showGame(state);
     } else {
@@ -157,4 +161,12 @@ class Application {
 
 }
 
+
+const splash = new SplashScreen();
+splash.show();
+Loader.loadData()
+    .then((data) => (Application.init(createAppData(data))))
+    .catch(() => splash.showError());
+
 export default Application;
+
