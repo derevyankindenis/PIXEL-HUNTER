@@ -51,7 +51,7 @@ export const AnswerType = {
   PHOTO: `photo`
 };
 
-const convertToGameObject = (gameObject) => {
+const toGameObject = (gameObject) => {
   const result = {
     type: gameObject.type,
     title: gameObject.question,
@@ -64,8 +64,6 @@ const convertToGameObject = (gameObject) => {
 
   return result;
 };
-
-const convertToGameData = (serverData) => serverData.map((gameObject) => convertToGameObject(gameObject));
 
 const GREETING = {
   title: `Лучшие художники-фотореалисты бросают&nbsp;тебе&nbsp;вызов!`,
@@ -90,7 +88,7 @@ const SETTINGS_DEFAULT = {
 
 
 export const createAppData = (serverData, greeting = GREETING, parametrs = SETTINGS_DEFAULT) => {
-  const games = convertToGameData(serverData);
+  const games = serverData.map(toGameObject);
   parametrs.COUNT_GAMES = games.length;
   return {
     greeting,

@@ -5,8 +5,7 @@ import Game1 from './screens/game/game1';
 import Game2 from './screens/game/game2';
 import Game3 from './screens/game/game3';
 import StatisticScreen from './screens/statistic/statistic';
-import {QuestionType, createAppData} from './data/game-data';
-import SplashScreen from './screens/splash-screen';
+import {QuestionType} from './data/game-data';
 import {Loader, DEFAULT_NAME} from './utils/loader';
 
 
@@ -161,12 +160,5 @@ class Application {
     }
   }
 }
-
-
-const splash = new SplashScreen();
-splash.show();
-Loader.loadData()
-    .then((data) => (Application.init(createAppData(data))))
-    .catch(() => splash.showError());
 
 export default Application;
