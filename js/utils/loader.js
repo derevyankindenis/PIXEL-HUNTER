@@ -33,7 +33,24 @@ export class Loader {
         return [];
       }
       throw new Error(`Произошла ошибка загрузки статистики`);
+    }).catch(() => []);
+  }
+
+  static loadImage(url) {
+    return new Promise((onLoad, onError) => {
+      const image = new Image();
+      image.onload = () => onLoad(image);
+      image.onerror = () => onError(`Не удалось загрузить изображение: ${url}`);
+      image.src = url;
     });
+  }
+
+  static getAllLinksFromData(data) {
+    return data.reduce((srcArr, game) => srcArr.concat(game.answers.map((answer) => answer.image.url)), []);
+  }
+
+  static loadImagesFromUrls(urls) {
+    return Promise.all(urls.map((url) => Loader.loadImage(url)));
   }
 
 }

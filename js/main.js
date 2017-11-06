@@ -1,13 +1,20 @@
 import Application from './application';
-import SplashScreen from './screens/splash-screen';
 import {Loader} from './utils/loader';
 import {createAppData} from './data/game-data';
+import IntroScreen from './screens/intro/intro';
 
-const splash = new SplashScreen();
-splash.show();
+IntroScreen.init();
+IntroScreen.startRotateAsterix();
+IntroScreen.setLoadText(`Загрузка...`);
+
 Loader.loadData()
     .then((data) => {
-      splash.stop();
-      Application.init(createAppData(data));
+      Loader.loadImagesFromUrls(Loader.getAllLinksFromData(data))
+          .then(() => {
+            IntroScreen.stopRotateAsterix();
+            IntroScreen.setLoadText(`Загружено!`);
+            Application.init(createAppData(data));
+            Application.showGreeting();
+          });
     })
-    .catch(() => splash.showError());
+    .catch(() => IntroScreen.setLoadText(`Ошибка загрузки данных!`));

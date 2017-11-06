@@ -18,7 +18,6 @@ const getInitialState = () => {
 };
 
 const ControllerId = {
-  INTRO: ``,
   GREETING: `greeting`,
   RULES: `rules`,
   GAME_1: `game_1`,

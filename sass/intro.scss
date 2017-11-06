@@ -14,24 +14,36 @@
 
   font-size: 172px;
   color: $main-red-color;
-  cursor: pointer;
 
   position: relative;
-  top: 220px;
+  top: 167px;
   left: 30px;
-
-  &:hover {
-    color: $link-hover-color;
-  }
-
-  &:active {
-    color: $link-active-color;
-  }
+  padding-top: 50px;
 }
+
+@keyframes rotateAsterix {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
+}
+
+.intro__asterisk--rotate {
+  transform-origin: center center;
+  animation: rotateAsterix;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
 
 .intro__motto {
   font-size: 18px;
 
   position: absolute;
   bottom: 0;
+}
+
+.intro__state {
+  padding-top: 50px;
+  text-align: center;
+  padding-left: 60px;
 }

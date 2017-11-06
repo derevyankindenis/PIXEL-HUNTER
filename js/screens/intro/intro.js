@@ -8,12 +8,21 @@ class IntroScreen {
   }
 
   init() {
-    this.view.onClick = () => {
-      Application.showGreeting();
-    };
-
     changeView(this.view);
   }
+
+  startRotateAsterix() {
+    this.view.startRotateAsterix();
+  }
+
+  stopRotateAsterix() {
+    this.view.stopRotateAsterix();
+  }
+
+  setLoadText(text = ``) {
+    this.view.loadText = text;
+  }
+
 }
 
 export default new IntroScreen();
