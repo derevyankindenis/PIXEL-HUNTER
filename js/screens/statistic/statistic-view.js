@@ -24,7 +24,7 @@ class StatisticView extends AbstractView {
   bonusRows(lives, statistic, settings) {
     return `
       ${statistic.fastAnswers ? this.rowTemplate(`Бонус за скорость:`, statistic.fastAnswers, settings.POINTS_FOR_FAST_ANSWERS, statistic.pointsForFastAnswers, `fast`) : ``}
-      ${this.rowTemplate(`Бонус за жизни:`, lives, settings.POINTS_FOR_LIVES, statistic.pointsForLives, `alive`)}
+      ${lives ? this.rowTemplate(`Бонус за жизни:`, lives, settings.POINTS_FOR_LIVES, statistic.pointsForLives, `alive`) : ``}
       ${statistic.slowAnswers ? this.rowTemplate(`Штраф за медлительность:`, statistic.slowAnswers, -settings.POINTS_FOR_SLOW_ANSWERS, -statistic.pointsForSlowAnswers, `slow`) : ``}
       <tr>
         <td colspan="5" class="result__total  result__total--final">${statistic.totalPoints}</td>

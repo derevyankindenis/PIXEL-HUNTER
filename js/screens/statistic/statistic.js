@@ -15,7 +15,7 @@ class StatisticScreen {
 
   init(state, userName) {
     this.view.clearStatistic();
-    this.view.resultTitle = ((state.answers.length !== this.model.parametrs.COUNT_GAMES) || (state.lives <= 0)) ? `Поражение :(` : `Победа!`;
+    this.view.resultTitle = ((state.answers.length !== this.model.parametrs.COUNT_GAMES) || (state.lives < 0)) ? `Поражение :(` : `Победа!`;
     this.currentStatistic = getGameStatistic(state.answers, state.lives, this.model.parametrs);
 
     const splash = new SplashScreen();

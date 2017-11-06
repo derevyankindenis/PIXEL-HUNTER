@@ -2,7 +2,7 @@ import {countEnterElement} from '../utils/utils';
 
 export const getGameStatistic = (answers, countLives, gameParametrs) => {
 
-  if ((answers.length !== gameParametrs.COUNT_GAMES) || (countLives <= 0)) {
+  if ((answers.length !== gameParametrs.COUNT_GAMES) || (countLives < 0)) {
     return 0;
   }
 
