@@ -10,13 +10,6 @@ class AbstractView {
     throw Error(`Method template need to overriden`);
   }
 
-  render() {
-    return getElementFromTemplate(this.template);
-  }
-
-  bind() {
-  }
-
   get element() {
     if (!this._element) {
       this._element = this.render();
@@ -37,20 +30,27 @@ class AbstractView {
     }
   }
 
+  render() {
+    return getElementFromTemplate(this.template);
+  }
+
+  bind() {
+  }
+
   updateHeader(header) {
     this.element.removeChild(this._header.element);
     this._header = header.view;
     this.element.insertAdjacentElement(`afterBegin`, this._header.element);
   }
 
+  addRenderListener(listener) {
+    this._onRenderedListeners.add(listener);
+  }
+
   onRender() {
     for (const listener of this._onRenderedListeners) {
       listener();
     }
-  }
-
-  addRenderListener(listener) {
-    this._onRenderedListeners.add(listener);
   }
 
 }

@@ -1,6 +1,6 @@
 import AbstractView from '../abstract-view';
 import {resizeImages} from '../../utils/resize';
-import statisticTemplate from '../statistic/statistic-template';
+import getStatisticTemplate from '../statistic/statistic-template';
 import {getElementFromTemplate} from '../../utils/utils';
 
 
@@ -20,14 +20,14 @@ class AbstractGameView extends AbstractView {
     this._images = paramImages;
   }
 
-  getTemplateImage(src, index) {
+  static getTemplateImage(src, index) {
     return `<img src="${src}" alt="Option ${(index + 1) ? index : ``}" class="game__image">`;
   }
 
   updateImages(paramImages) {
     this._gameOptions.forEach((option, index) => {
       option.removeChild(this._gameImages[index]);
-      this._gameImages[index] = getElementFromTemplate(this.getTemplateImage(paramImages[index].src, index)).children[0];
+      this._gameImages[index] = getElementFromTemplate(AbstractGameView.getTemplateImage(paramImages[index].src, index)).children[0];
       option.insertAdjacentElement(`afterBegin`, this._gameImages[index]);
     });
   }
@@ -42,15 +42,9 @@ class AbstractGameView extends AbstractView {
     this._gameElement.appendChild(this.statisticLine);
   }
 
-  onRender() {
-    this._questionForm.reset();
-    resizeImages(this._gameOptions, this._gameImages);
-    super.onRender();
-  }
-
   setStatisticLine(answers, countGames, fastTime, slowTime) {
 
-    const statisticElement = getElementFromTemplate(statisticTemplate(answers, countGames, fastTime, slowTime));
+    const statisticElement = getElementFromTemplate(getStatisticTemplate(answers, countGames, fastTime, slowTime));
 
     if (this.statisticLine) {
       this.updateStatisticLine(statisticElement);
@@ -64,6 +58,12 @@ class AbstractGameView extends AbstractView {
     this._gameElement.removeChild(this.statisticLine);
     this.statisticLine = statisticElement;
     this._gameElement.appendChild(this.statisticLine);
+  }
+
+  onRender() {
+    this._questionForm.reset();
+    resizeImages(this._gameOptions, this._gameImages);
+    super.onRender();
   }
 
 }

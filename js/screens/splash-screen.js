@@ -18,7 +18,7 @@ export default class SplashScreen extends AbstractView {
   `;
   }
 
-  getErrorLoad(errorMessage) {
+  static getErrorLoad(errorMessage) {
     return `<div class = "ErrorMessage">${errorMessage}</div>`;
   }
 
@@ -31,7 +31,7 @@ export default class SplashScreen extends AbstractView {
   }
 
   showError(message = `Ошибка загрузки...`) {
-    this._element = getElementFromTemplate(this.getErrorLoad(message));
+    this._element = getElementFromTemplate(SplashScreen.getErrorLoad(message));
     changeView(this);
   }
 }

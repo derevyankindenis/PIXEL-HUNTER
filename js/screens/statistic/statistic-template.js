@@ -1,4 +1,4 @@
-const statisticTemplate = (answers, countGames, fastTime, slowTime) => `<div class="stats">
+const getStatisticTemplate = (answers, countGames, fastTime, slowTime) => `<div class="stats">
 <ul class="stats">
   ${answers.map((answer) => {
     if (!answer.isCorrect) {
@@ -16,4 +16,4 @@ const statisticTemplate = (answers, countGames, fastTime, slowTime) => `<div cla
   </ul>
 </div>`;
 
-export default statisticTemplate;
+export default getStatisticTemplate;

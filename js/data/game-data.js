@@ -1,4 +1,4 @@
-import {countEnterElement} from '../utils/utils';
+import {getCountEnterElement} from '../utils/utils';
 
 export const getGameStatistic = (answers, countLives, gameParametrs) => {
 
@@ -59,7 +59,7 @@ const convertToGameObject = (gameObject) => {
   };
 
   if (result.type === QuestionType.ONE_OF_THREE) {
-    result.search = gameObject.answers.map((image) => image.type).find((type, index, arr) => (countEnterElement(arr, type) === 1));
+    result.search = gameObject.answers.map((image) => image.type).find((type, index, arr) => (getCountEnterElement(arr, type) === 1));
   }
 
   return result;

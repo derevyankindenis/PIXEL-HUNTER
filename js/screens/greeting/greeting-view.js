@@ -21,12 +21,12 @@ class GreetingView extends AbstractView {
     </div>`.trim();
   }
 
-  onClick() {
-  }
-
   bind() {
     const continueBtn = this._element.querySelector(`.greeting__continue`);
     continueBtn.addEventListener(`click`, this.onClick);
+  }
+
+  onClick() {
   }
 
 }

@@ -9,7 +9,7 @@ class Game3View extends AbstractGameView {
       <form class="game__content  game__content--triple">
         ${this._images.map((image, index) => `
           <div class="game__option" data-index=${index}>
-            ${this.getTemplateImage(image.src, index)}
+            ${AbstractGameView.getTemplateImage(image.src, index)}
           </div>`).join(``)}
       </form>
     </div>`;

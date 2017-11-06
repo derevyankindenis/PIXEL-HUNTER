@@ -80,7 +80,7 @@ describe(`Тестирование функции подсчета статис�
   });
 
   it(`Если у игрока кончились жизни, то очки не начисляются`, () => {
-    const statistic = getGameStatistic([NA, NA, NA, NA, NA, NA, NA, NA, NA, NA], 0, GAME_PARAMETRS);
+    const statistic = getGameStatistic([NA, NA, NA, NA, NA, NA, NA, NA, NA, NA], -1, GAME_PARAMETRS);
     assert.equal(statistic, 0);
   });
 

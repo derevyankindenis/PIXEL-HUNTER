@@ -9,7 +9,7 @@ class Game1View extends AbstractGameView {
       <form class="game__content">
         ${this._images.map((image, index) => `
         <div class="game__option">
-          ${this.getTemplateImage(image.src, index)}
+          ${AbstractGameView.getTemplateImage(image.src, index)}
           <label class="game__answer game__answer--photo">
             <input name="question${index + 1}" type="radio" value="photo">
             <span>Фото</span>
