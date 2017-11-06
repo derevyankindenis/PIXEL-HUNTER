@@ -20,8 +20,11 @@ class IntroView extends AbstractView {
   }
 
   bind() {
+    this.intro = this._element.querySelector(`.intro`);
     this.asterix = this._element.querySelector(`.intro__asterisk`);
     this.introState = this._element.querySelector(`.intro__state`);
+    this.motto = this._element.querySelector(`.intro__motto`);
+
   }
 
   startRotateAsterix() {
@@ -30,6 +33,13 @@ class IntroView extends AbstractView {
 
   stopRotateAsterix() {
     this.asterix.classList.remove(`intro__asterisk--rotate`);
+  }
+
+  startAnimationInvisible() {
+    this.intro.classList.add(`bgChange`);
+    this.asterix.classList.add(`invisible`);
+    this.introState.classList.add(`invisible`);
+    this.motto.classList.add(`invisible`);
   }
 }
 

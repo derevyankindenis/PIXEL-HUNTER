@@ -64,6 +64,7 @@ class Application {
     window.onhashchange = hashChangeHandler;
 
     hashChangeHandler();
+    return data;
   }
 
   static changeHash(id, state) {

@@ -6,14 +6,12 @@ class GreetingScreen {
 
   constructor(model) {
     this.view = new GreetingView(model.title, model.content);
-  }
-
-  init() {
-
     this.view.onClick = () => {
       Application.showRules();
     };
+  }
 
+  init() {
     changeView(this.view);
   }
 }

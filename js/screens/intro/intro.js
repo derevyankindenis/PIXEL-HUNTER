@@ -1,4 +1,3 @@
-import Application from '../../application';
 import IntroView from './intro-view';
 import {changeView} from '../../utils/utils';
 
@@ -9,6 +8,7 @@ class IntroScreen {
 
   init() {
     changeView(this.view);
+
   }
 
   startRotateAsterix() {
@@ -21,6 +21,10 @@ class IntroScreen {
 
   setLoadText(text = ``) {
     this.view.loadText = text;
+  }
+
+  startAnimationInvisible() {
+    this.view.startAnimationInvisible();
   }
 
 }

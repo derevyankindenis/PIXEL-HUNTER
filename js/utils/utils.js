@@ -14,3 +14,7 @@ export const changeView = (view) => {
 };
 
 export const getCountEnterElement = (arr, search) => arr.reduce((count, element) => element === search ? count + 1 : count, 0);
+
+export const getAllLinksFromData = (data) => {
+  return data.reduce((srcArr, game) => srcArr.concat(game.answers.map((answer) => answer.image.url)), []);
+};

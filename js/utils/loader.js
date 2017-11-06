@@ -44,13 +44,4 @@ export class Loader {
       image.src = url;
     });
   }
-
-  static getAllLinksFromData(data) {
-    return data.reduce((srcArr, game) => srcArr.concat(game.answers.map((answer) => answer.image.url)), []);
-  }
-
-  static loadImagesFromUrls(urls) {
-    return Promise.all(urls.map((url) => Loader.loadImage(url)));
-  }
-
 }
