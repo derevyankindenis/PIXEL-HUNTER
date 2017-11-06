@@ -75,7 +75,7 @@ const greetingDefault = {
 };
 
 const settingsDefault = {
-  FAST_TIME: 5,
+  FAST_TIME: 10,
   SLOW_TIME: 20,
   MAX_TIME: 30,
   MAX_LIVES: 3,
