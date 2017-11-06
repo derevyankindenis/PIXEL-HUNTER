@@ -127,7 +127,7 @@ class Application {
         this.routes[ControllerId.GAME_2].init(state);
         break;
       case QuestionType.ONE_OF_THREE:
-        this.routes[ControllerId.GAME_2].init(state);
+        this.routes[ControllerId.GAME_3].init(state);
         break;
     }
   }
@@ -140,7 +140,7 @@ class Application {
     if ((state.answers.length > 0) && (!state.answers[state.currentGame].isCorrect)) {
       state.lives--;
     }
-    if (((this.data.parametrs.COUNT_GAMES > state.currentGame + 1) && (state.lives > 0))) {
+    if (((this.data.parametrs.COUNT_GAMES > state.currentGame + 1) && (state.lives >= 0))) {
       state.currentGame++;
       this.showGame(state);
     } else {
